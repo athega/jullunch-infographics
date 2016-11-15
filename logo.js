@@ -7,7 +7,7 @@ $(function() {
 
     $h1.load($h1.find('> img').attr('src'));
 
-    window.updateLogoAnimationFrame = function updateLogoAnimationFrame() {
+    function updateAnimationFrame() {
         var si = Math.sin(i += 0.037),
             cj = Math.cos(j += 0.043),
             azimuth = Math.atan2(cj, si) * 180 / Math.PI,
@@ -17,6 +17,16 @@ $(function() {
         $('#distant-light').attr('azimuth', azimuth);
         $('#drop-shadow').css('transform', 'translate(' + dx + 'px,' + (dy + 2) + 'px)');
         $('#edge-logo').css('transform', 'translate(' + -dx/2 + 'px,' + (-dy/2 - 2) + 'px)');
-        updateLogoAnimationFrame.requestId = requestAnimationFrame(updateLogoAnimationFrame);
+
+        logoAnimation.play();
     }
+
+    window.logoAnimation = {
+        pause: function() {
+            cancelAnimationFrame(updateAnimationFrame.requestId);
+        },
+        play: function() {
+            updateAnimationFrame.requestId = requestAnimationFrame(updateAnimationFrame);
+        }
+    };
 });

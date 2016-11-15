@@ -57,9 +57,11 @@ $(function() {
         $pages.removeClass('active');
         $page.addClass('active');
 
-        cancelAnimationFrame(updateLogoAnimationFrame.requestId);
-        if (!$page.is('.slide'))
-            updateLogoAnimationFrame.requestId = requestAnimationFrame(updateLogoAnimationFrame);
+        if (window.logoAnimation) {
+            logoAnimation.pause();
+            if (!$page.is('.slide'))
+                logoAnimation.play();
+        }
 
         setRandomPageTimeout($page);
     }
