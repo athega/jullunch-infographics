@@ -12,8 +12,7 @@ $(function() {
         maxItemsLoopTime = 60000,
         subscribedLoopTime = 60000,
         slideLoopTime = 20000,
-        $pages = $('main > div'),
-        $subscribedPage;
+        $pages = $('main > div');
 
     function showPrevious() {
         var $currentPage = $pages.filter('.active'),
@@ -31,13 +30,13 @@ $(function() {
 
     function subscribe($page) {
         if ($page.hasClass('slide')) return;
-        $subscribedPage = $page;
-        notification('Prenumererar på händelser för #' + $subscribedPage.attr('id'));
+        subscription.$page = $page;
+        notification('Prenumererar på händelser för #' + $page.attr('id'));
     }
 
     function subscription($page) {
-        if ($page.is($subscribedPage)) {
-            showPage($subscribedPage);
+        if ($page.is(subscription.$page)) {
+            showPage(subscription.$page);
         }
     }
 
@@ -60,10 +59,14 @@ $(function() {
         if (!$page.is('.slide'))
             updateLogoAnimationFrame.requestId = requestAnimationFrame(updateLogoAnimationFrame);
 
+        setRandomPageTimeout($page);
+    }
+
+    function setRandomPageTimeout($page) {
         var time = loopTime,
             count = $page.data('count');
 
-        if ($page.is($subscribedPage)) {
+        if ($page.is(subscription.$page)) {
             time = subscribedLoopTime;
         }
         else if ($page.is('.slide')) {
