@@ -281,6 +281,7 @@ $(function() {
     // Event source events
     eventSource.onerror = function(event) {
         notification('Event source failed!');
+        setTimeout(function() { location.href = location.pathname; }, 12000);
     };
 
     function listen(event, handler) {
