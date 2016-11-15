@@ -2,14 +2,20 @@
     font-family: 'PT Sans Narrow';
     font-style: normal;
     font-weight: 400;
-    src: local('PT Sans Narrow'), local('PTSans-Narrow'), url(https://fonts.gstatic.com/s/ptsansnarrow/v7/UyYrYy3ltEffJV9QueSi4SXGGgjhbil4nYG1ct5o924.woff2) format('woff2');
+    src: local('PT Sans Narrow'),
+         local('PTSans-Narrow'),
+         url(https://fonts.gstatic.com/s/ptsansnarrow/v7/UyYrYy3ltEffJV9QueSi4SXGGgjhbil4nYG1ct5o924.woff2) format('woff2'),
+         url(https://fonts.gstatic.com/s/ptsansnarrow/v7/UyYrYy3ltEffJV9QueSi4Z4t0mJKPaLVqklzZuc32b4.woff) format('woff');
 }
 
 @font-face {
     font-family: 'Oswald';
     font-style: normal;
     font-weight: 700;
-    src: local('Oswald Bold'), local('Oswald-Bold'), url(https://fonts.gstatic.com/s/oswald/v11/bH7276GfdCjMjApa_dkG6ZBw1xU1rKptJj_0jans920.woff2) format('woff2');
+    src: local('Oswald Bold'),
+         local('Oswald-Bold'),
+         url(https://fonts.gstatic.com/s/oswald/v11/bH7276GfdCjMjApa_dkG6ZBw1xU1rKptJj_0jans920.woff2) format('woff2'),
+         url(https://fonts.gstatic.com/s/oswald/v11/bH7276GfdCjMjApa_dkG6bO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
 }
 
 body {
@@ -72,6 +78,14 @@ body > h1 > svg {
     height: 228px;
 }
 
+@media (max-width: 640px), (max-height: 480px) {
+    body > h1 > img,
+    body > h1 > svg {
+        width: 264px;
+        height: 114px;
+    }
+}
+
 main {
 }
 
@@ -80,6 +94,12 @@ main > div {
     top: 50%;
     transform: translateY(-50%);
     width: 100%;
+}
+
+@media (max-height: 480px) {
+    main > div:not(.slide) {
+        top: 66%;
+    }
 }
 
 main > div:not(.active) {
@@ -126,7 +146,7 @@ main > .slide > img {
 }
 
 .number {
-    font-family: "Oswald";
+    font-family: Oswald, sans-serif;
     display: inline-block;
     color: #348FAD;
 }
