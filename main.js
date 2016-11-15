@@ -31,6 +31,7 @@ $(function() {
     function subscribe($page) {
         if ($page.hasClass('slide')) return;
         subscription.$page = $page;
+        localStorage.setItem('subscription-page', '#' + $page.attr('id'));
         notification('Prenumererar på händelser för #' + $page.attr('id'));
     }
 
@@ -214,7 +215,7 @@ $(function() {
         subscription($page);
     }
 
-    // Initial item data
+    // Init item data
     var initState = $.get(stateDataURL, function(data) {
         updatePage('mulled_wine', data.mulled_wine);
         updatePage('food', data.food);
@@ -231,6 +232,11 @@ $(function() {
     // Init companies toplist
     var initCompanies = $.get(companiesDataURL, function(companies) {
         companies.forEach(updateCompaniesPage);
+    });
+
+    // Restore subscription when all initial updates are done.
+    $.when(initState, initGuests, initCompanies).done(function() {
+        subscription.$page = $pages.filter(localStorage.getItem('subscription-page'));
     });
 
     // Init ad slides
