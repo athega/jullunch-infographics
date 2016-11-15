@@ -277,6 +277,31 @@ $(function() {
         }
     });
 
+    // Manual paging on touch screens.
+    var touchX, touchY, swipe;
+    $(window).on({
+        touchstart: function(event) {
+            touchX = event.originalEvent.targetTouches[0].clientX;
+            touchY = event.originalEvent.targetTouches[0].clientY;
+            swipe = false;
+        },
+        touchmove: function(event) {
+            var dx = event.originalEvent.targetTouches[0].clientX - touchX,
+                dy = event.originalEvent.targetTouches[0].clientY - touchY;
+
+            if (Math.abs(dx) > 100 && Math.abs(dy) < Math.abs(dx) / 4)
+                swipe = Math.sign(dx) == 1 ? 'right' : 'left';
+            else
+                swipe = false;
+
+            event.preventDefault();
+        },
+        touchend: function(event) {
+            if (swipe == 'right') showPrevious();
+            else if (swipe == 'left') showNext();
+        },
+    });
+
 
     // Event source events
     eventSource.onerror = function(event) {
