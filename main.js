@@ -246,8 +246,11 @@ $(function() {
 
     $.when(initAds).done(function() {
         $pages = $('main > div');
-        var $defaultPage = $pages.filter(location.hash || '#attendance');
-        showPage($defaultPage);
+        var $defaultPage = $pages.filter(location.hash);
+        if ($defaultPage.length)
+            showPage($defaultPage);
+        else
+            showRandomPage();
     });
 
     // Manual paging
