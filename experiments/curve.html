@@ -1,0 +1,439 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+    canvas {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 24px;
+        box-shadow: 0 0 24px 0 #f60;
+        border-radius: 24px;
+    }
+</style>
+</head>
+<body>
+    <canvas id="canvas" width="800" height="248"></canvas>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/quicksettings/3.0/quicksettings.min.js"></script>
+<script>
+(function(){
+    'use strict';
+
+    var canvas = document.getElementById("canvas"),
+        ctx = canvas.getContext("2d"),
+        parseCommandTimeout,
+        path = [
+            'M.019 16.42h15.235c-.12-2.838-1.762-4.716-4.647-4.716-1.643 0-3.245.759-3.887 2.277H.378c1.237-4.78 5.664-6.848 10.309-6.848 6.762 0 11.349 4.054 11.349 11.005 0 6.418-5.067 10.948-11.189 10.948C3.41 29.086-.3 23.502.02 16.42z',
+            'm15.235 3.796H6.8c.12 2.352 1.763 4.3 4.047 4.3 2.404 0 4.007-1.744 4.407-4.3z',
+            'M35.878 12.12H31.69v9.434c0 1.64.957 1.999 2.434 1.999.557 0 1.156-.08 1.754-.08v4.992c-1.237.04-2.472.199-3.71.199-5.784 0-7.26-1.678-7.26-7.31v-9.235h-3.43V7.756h3.43V1.494h6.782v6.262h4.188v4.363z',
+            'M37.563 0h6.781v10.577c1.038-2.118 3.834-3.437 6.31-3.437 6.903 0 7.46 5.037 7.46 8.03v13.293h-6.78V18.444c0-2.834.319-5.708-3.395-5.708-2.557 0-3.675 2.157-3.675 4.431v11.296h-6.781V0z',
+            'M81.501 19.8H66.266c.12 2.838 1.763 4.716 4.648 4.716 1.642 0 3.245-.76 3.886-2.279h6.342c-1.236 4.782-5.664 6.85-10.309 6.85-6.761 0-11.348-4.055-11.348-11.005 0-6.418 5.066-10.948 11.188-10.948 7.438 0 11.148 5.584 10.828 12.666z',
+            'm-15.235-3.796h8.454c-.12-2.353-1.762-4.3-4.047-4.3-2.404 0-4.007 1.744-4.407 4.3z',
+            'M103.831 7.756v18.23c0 3.39-.635 9.748-10.298 9.748-4.827 0-9.625-1.67-10.423-7.24h6.782c.16.918.769 2.078 1.407 2.432.598.324 1.435.446 2.472.446 3.231 0 3.55-2.313 3.55-4.89v-1.955c-1.237 1.914-3.309 3.032-5.503 3.032-6.263 0-9.095-4.468-9.095-10.291 0-5.503 3.23-10.13 9.095-10.13 2.472 0 4.346 1.076 5.544 3.191V7.756h6.47z',
+            'm-6.054 9.792c0-2.632-1.036-5.225-4.068-5.225-2.99 0-3.948 2.632-3.948 5.185 0 2.432 1.116 4.865 3.908 4.865 2.872 0 4.108-2.233 4.108-4.825z',
+            'M105.224 16.42h15.235c-.12-2.838-1.762-4.716-4.647-4.716-1.644 0-3.245.759-3.887 2.277h-6.343c1.237-4.78 5.664-6.848 10.31-6.848 6.761 0 11.348 4.054 11.348 11.005 0 6.418-5.065 10.948-11.188 10.948-7.438 0-11.148-5.584-10.828-12.666z',
+            'm15.572 3.796h-8.454c.121 2.352 1.763 4.3 4.047 4.3 2.404 0 4.007-1.744 4.407-4.3z',
+        ];
+
+
+    function draw(animated) {
+        clearTimeout(parseCommandTimeout);
+        parseCommandTimeout = typeof animated == 'boolean' ? animated : true;
+
+        ctx.restore();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.save();
+        ctx.scale(6, 6);
+        ctx.translate(3, 3);
+
+        parse(path.join(''));
+        //parse(path[3] + path[4]);
+        //parse('M 0 12 h 127 z' + 'M 127 24 h -127 z')
+    }
+
+    function redraw() {
+        draw(false);
+    }
+
+    function parse(path) {
+        var command,
+            point = '',
+            points = [],
+            cursor = {x: 0, y: 0},
+            start = {x: 0, y: 0},
+            i = 0;
+
+        parseCommand();
+
+        function parseCommand() {
+            while (i < path.length) {
+                var c = path[i++];
+
+                switch (c) {
+                case 'M':
+                case 'm':
+                case 'V':
+                case 'v':
+                case 'H':
+                case 'h':
+                case 'C':
+                case 'c':
+                case 'z':
+                    if (point) points.push(+point);
+                    point = '';
+                    if (command) exec(command, points);
+                    command = c;
+                    points = [];
+                    if (parseCommandTimeout)
+                        return parseCommandTimeout = window.setTimeout(parseCommand, settings.getValue('Animation delay'));
+
+                    break;
+
+                case '0':
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                case '9':
+                    point += c;
+                    break;
+
+                case '-':
+                    if (point) points.push(+point);
+                    point = c;
+                    break;
+
+                case '.':
+                    if (point.indexOf(c) != -1) {
+                        points.push(+point);
+                        point = '0' + c;
+                    }
+                    else {
+                        if (point === '-')
+                            point += '0';
+                        point += c;
+                    }
+                    break;
+
+                case ' ':
+                case '\t':
+                case '\n':
+                case '\r':
+                    if (point) points.push(+point);
+                    point = '';
+                    break;
+
+                default:
+                    console.log('Unrecognized character', c);
+                }
+            }
+
+            if (command) exec(command, points);
+        }
+
+        function exec(command, points) {
+            switch (command) {
+
+            case 'm':
+                points[0] += cursor.x;
+                points[1] += cursor.y;
+            case 'M':
+                if (points.length != 2) console.log('Incorrect number of points for command', command, points.length);
+                start = cursor = {x: points.shift(), y: points.shift()};
+                break;
+
+            case 'v':
+                points[0] += cursor.y;
+            case 'V':
+                if (points.length != 1) console.log('Incorrect number of points for command', command, points.length);
+                var point = {x: cursor.x, y: points.shift()},
+                    control1 = {x: (cursor.x * 2 + point.x) / 3, y: (cursor.y * 2 + point.y) / 3},
+                    control2 = {x: (cursor.x + point.x * 2) / 3, y: (cursor.y + point.y * 2) / 3};
+                drawCurve(cursor, control1, control2, point);
+                cursor = point;
+                break;
+
+            case 'h':
+                points[0] += cursor.x;
+            case 'H':
+                if (points.length != 1) console.log('Incorrect number of points for command', command, points.length);
+                var point = {x: points.shift(), y: cursor.y},
+                    control1 = {x: (cursor.x * 2 + point.x) / 3, y: (cursor.y * 2 + point.y) / 3},
+                    control2 = {x: (cursor.x + point.x * 2) / 3, y: (cursor.y + point.y * 2) / 3};
+                drawCurve(cursor, control1, control2, point);
+                cursor = point;
+                break;
+
+            case 'c':
+            case 'C':
+                if (points.length < 3 || points.length % 3 != 0) console.log('Incorrect number of points for command', command, points.length);
+                while (points.length) {
+                    var offset = command === 'c' ? {x: cursor.x, y: cursor.y} : {x: 0, y: 0},
+                        control1 = {x: offset.x + points.shift(), y: offset.y + points.shift()},
+                        control2 = {x: offset.x + points.shift(), y: offset.y + points.shift()},
+                        point =    {x: offset.x + points.shift(), y: offset.y + points.shift()};
+                    drawCurve(cursor, control1, control2, point);
+                    cursor = point;
+                }
+                break;
+
+            case 'z':
+                if (points.length != 0) console.log('Incorrect number of points for command', command, points.length);
+                //drawCurve(cursor, cursor, start, start);
+                cursor = start;
+                break;
+
+            default:
+                console.log('Unrecognized command', command);
+            }
+
+            if (points.length) {
+                console.log('Left over points for command', command, points);
+            }
+        }
+    }
+
+
+    function drawCurve(s, c1, c2, e) {
+        var points = [{x: s.x, y: s.y}, {x: e.x, y: e.y}],
+            PI = Math.PI,
+            PI2 = Math.PI/2,
+            quality = settings.getValue('Curve quality'),
+            stepsize = 0.5 + Math.pow((100 - quality) / 100, 3) * 24,
+            steps = 1;
+
+        while (Math.abs(points[1].x - points[0].x) +
+               Math.abs(points[1].y - points[0].y) > stepsize &&
+               steps < 24) {
+            steps++;
+            points = [{x: s.x, y: s.y}];
+            for (var t = 1; t < steps; t++) {
+                points.push(getCubicBezierXYatT(s, c1, c2, e, t/steps));
+            }
+            points.push({x: e.x, y: e.y});
+        }
+
+
+        for (var i = 0; i < points.length-1; i++) {
+            var p1 = points[i],
+                p2 = points[i+1],
+                a = Math.atan2(p2.y - p1.y, p2.x - p1.x);
+
+            e.a = p2.ca = p2.a = p1.ca = p1.a = a;
+        }
+
+        for (var i = 0; i < points.length-1; i++) {
+            var p1 = points[i],
+                p2 = points[i+1],
+                p0 = i > 0 ? points[i-1] : 'a' in s ? s : p1,
+                a0 = {x: Math.cos(p0.a), y: Math.sin(p0.a)},
+                a1 = {x: Math.cos(p1.a), y: Math.sin(p1.a)},
+                a2 = {x: Math.cos(p2.a), y: Math.sin(p2.a)},
+                bp = {x: a0.x + a1.x, y: a0.y + a1.y},
+                ep = {x: a1.x + a2.x, y: a1.y + a2.y},
+                ba = Math.atan2(bp.y, bp.x),
+                ea = Math.atan2(ep.y, ep.x);
+
+            p1.ba = ba;
+            p1.ea = ea;
+        }
+
+        if ((Math.abs(e.x - s.x) + Math.abs(c1.x - s.x) + Math.abs(c2.x - e.x) < 0.001) ||
+            (Math.abs(e.y - s.y) + Math.abs(c1.y - s.y) + Math.abs(c2.y - e.y) < 0.001)) {
+            var o = PI/4 * settings.getValue('Line bulge reflection') / 45;
+            for (var i = 0; i < points.length; i++) {
+                var a = points[i].a + -o + 2 * o * i / (points.length - 1),
+                    cp = {x: Math.cos(a), y: Math.sin(a)},
+                    ca = Math.atan2(cp.y, cp.x);
+
+                points[i].ca = ca;
+            }
+        }
+
+
+        for (var i = 0; i < points.length-1; i++) {
+            var p1 = points[i],
+                p2 = points[i+1],
+                o = settings.getValue('Light direction') * PI / 180,
+                ca = Math.abs(p1.ca + o),
+                ca = (ca < PI ? ca : PI - (ca - PI)) / PI2,
+                c1 = {r: 240, g: 240, b: 240},
+                c2 = {r: 255, g: 102, b: 0},
+                c3 = {r: 0, g: 0, b: 0};
+
+            if (ca > 1) {
+                ca -= 1;
+                c1 = c2;
+                c2 = c3;
+            }
+
+            p1.r = Math.floor(c1.r + ca * (c2.r - c1.r));
+            p1.g = Math.floor(c1.g + ca * (c2.g - c1.g));
+            p1.b = Math.floor(c1.b + ca * (c2.b - c1.b));
+        }
+
+
+        var width = settings.getValue('Stroke width');
+        for (var i = 0; i < points.length-1; i++) {
+            var p1 = points[i],
+                p2 = points[i+1],
+                l = width / 2 - 0.1,
+                a = p1.a - PI2,
+                v = {x: Math.cos(a) * l, y: Math.sin(a) * l},
+                ba = p1.ba - PI2,
+                bv = {x: Math.cos(ba) * l, y: Math.sin(ba) * l},
+                ea = p1.ea - PI2,
+                ev = {x: Math.cos(ea) * l, y: Math.sin(ea) * l},
+                bv1 = {x: p1.x - bv.x, y: p1.y - bv.y},
+                bv2 = {x: p1.x + bv.x, y: p1.y + bv.y},
+                ev1 = {x: p2.x - ev.x, y: p2.y - ev.y},
+                ev2 = {x: p2.x + ev.x, y: p2.y + ev.y},
+                v1 = {x: p1.x - v.x, y: p1.y - v.y},
+                v2 = {x: p2.x - v.x, y: p2.y - v.y},
+                v3 = {x: p2.x + v.x, y: p2.y + v.y},
+                v4 = {x: p1.x + v.x, y: p1.y + v.y},
+                bi1 = lineIntersect(bv1, bv2, v1, v2),
+                bi2 = lineIntersect(bv1, bv2, v3, v4),
+                ei1 = lineIntersect(ev1, ev2, v1, v2),
+                ei2 = lineIntersect(ev1, ev2, v3, v4);
+
+            ctx.strokeStyle = ctx.fillStyle = 'rgb(' + [p1.r, p1.g, p1.b].join(',') + ')';
+            ctx.beginPath();
+            if (settings.getValue('Sharp corners')) {
+                ctx.lineCap = 'butt';
+                ctx.lineWidth = 0.2;
+                ctx.moveTo(bi1.x, bi1.y);
+                ctx.lineTo(ei1.x, ei1.y);
+                ctx.lineTo(ei2.x, ei2.y);
+                ctx.lineTo(bi2.x, bi2.y);
+                ctx.closePath();
+                ctx.fill();
+            } else {
+                ctx.lineCap = 'round';
+                ctx.lineWidth = width;
+                ctx.moveTo(p1.x, p1.y);
+                ctx.lineTo(p2.x, p2.y);
+            }
+            ctx.stroke();
+        }
+
+
+        if (settings.getValue('Draw light normals')) {
+            ctx.lineWidth = 0.1;
+            ctx.lineCap = 'butt';
+            ctx.strokeStyle = 'purple';
+            for (var i = 0; i < points.length-1; i++) {
+                var p1 = points[i],
+                    l = 6,
+                    a = p1.ba - PI2,
+                    v = {x: Math.cos(a) * l, y: Math.sin(a) * l};
+
+                ctx.beginPath();
+                ctx.moveTo(p1.x, p1.y);
+                ctx.lineTo(p1.x + v.x, p1.y + v.y);
+                ctx.stroke();
+            }
+
+            ctx.strokeStyle = 'green';
+            for (var i = 0; i < points.length-1; i++) {
+                var p1 = points[i],
+                    p2 = points[i+1],
+                    l = 5,
+                    a = p1.ea - PI2,
+                    v = {x: Math.cos(a) * l, y: Math.sin(a) * l};
+
+                ctx.beginPath();
+                ctx.moveTo(p2.x, p2.y);
+                ctx.lineTo(p2.x + v.x, p2.y + v.y);
+                ctx.stroke();
+            }
+
+            ctx.strokeStyle = 'red';
+            for (var i = 0; i < points.length; i++) {
+                var p1 = points[i],
+                    l = 3,
+                    a = p1.ca - PI2,
+                    v = {x: Math.cos(a) * l, y: Math.sin(a) * l};
+
+                ctx.beginPath();
+                ctx.moveTo(p1.x ,p1.y);
+                ctx.lineTo(p1.x + v.x, p1.y + v.y);
+                ctx.stroke();
+            }
+
+            ctx.strokeStyle = 'blue';
+            for (var i = 0; i < points.length-1; i++) {
+                var p1 = points[i],
+                    p2 = points[i+1],
+                    l = 3,
+                    a = p1.ca - PI2,
+                    v = {x: Math.cos(a) * l, y: Math.sin(a) * l};
+
+                ctx.beginPath();
+                ctx.moveTo(p2.x ,p2.y);
+                ctx.lineTo(p2.x + v.x, p2.y + v.y);
+                ctx.stroke();
+            }
+        }
+    }
+
+
+    function lineIntersect(p0, p1, p2, p3) {
+        var A1 = p1.y - p0.y,
+            B1 = p0.x - p1.x,
+            C1 = A1 * p0.x + B1 * p0.y,
+            A2 = p3.y - p2.y,
+            B2 = p2.x - p3.x,
+            C2 = A2 * p2.x + B2 * p2.y,
+            denominator = A1 * B2 - A2 * B1;
+
+        return {
+            x: (B2 * C1 - B1 * C2) / denominator,
+            y: (A1 * C2 - A2 * C1) / denominator
+        }
+    }
+
+    function getCubicBezierXYatT(startPt, controlPt1, controlPt2, endPt, T){
+        var x = CubicN(T, startPt.x, controlPt1.x, controlPt2.x, endPt.x);
+        var y = CubicN(T, startPt.y, controlPt1.y, controlPt2.y, endPt.y);
+        return({x: x, y: y});
+    }
+
+    function CubicN(T, a, b, c, d) {
+        var t2 = T * T,
+            t3 = t2 * T;
+        return a + (-a * 3 + T * (3 * a - a * T)) * T
+               + (3 * b + T * (-6 * b + b * 3 * T)) * T
+               + (c * 3 - c * 3 * T) * t2
+               + d * t3;
+    }
+
+
+
+    var settings = QuickSettings.create()
+        .addRange('Stroke width', 0.1, 3.6, 1, 0.1, redraw)
+        .addRange('Curve quality', 1, 100, 80, 1, redraw)
+        .addRange('Light direction', -180, 180, 0, 1, redraw)
+        .addBoolean('Sharp corners', false, redraw)
+        .addBoolean('Draw light normals', false, redraw)
+        .addRange('Line bulge reflection', 0, 45, 30, 1, redraw)
+        .addRange('Animation delay', 8, 104, 56, 16, draw)
+        .addButton('Animated redraw', draw)
+        .addButton("Restore defaults", function() {
+            settings.setValuesFromJSON(defaultSettings);
+        });
+    var defaultSettings = settings.getValuesAsJSON();
+    settings.saveInLocalStorage('Curve settings');
+
+    draw();
+})();
+</script>
+</body>
+</html>
