@@ -12,6 +12,7 @@ $(function() {
         maxItemsLoopTime = 60000,
         subscribedLoopTime = 60000,
         slideLoopTime = 20000,
+        watchdogTime = 30 * 60 * 1000,
         $pages = $('main > div');
 
     function showPrevious() {
@@ -214,6 +215,11 @@ $(function() {
 
         subscription($page);
     }
+
+    // Set watchdog timer to reload page.
+    if (watchdogTime) setTimeout(function() {
+        location.reload();
+    }, watchdogTime);
 
     // Init item data
     var initState = $.get(stateDataURL, function(data) {
