@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(function() {
     'use strict';
 
     var eventSourceURL = 'https://jullunch-backend.athega.se/stream',
@@ -13,7 +13,6 @@ $(document).ready(function() {
         subscribedLoopTime = 60000,
         slideLoopTime = 20000,
         loopTimeoutId,
-        logoAnimationFrameId,
         hideNotificationTimeoutId,
         $pages = $('main > div'),
         $subscribedPage;
@@ -59,9 +58,9 @@ $(document).ready(function() {
         $pages.removeClass('active');
         $page.addClass('active');
 
-        cancelAnimationFrame(logoAnimationFrameId);
+        cancelAnimationFrame(updateLogoAnimationFrame.requestId);
         if (!$page.is('.slide'))
-            logoAnimationFrameId = requestAnimationFrame(updateAnimationFrame);
+            updateLogoAnimationFrame.requestId = requestAnimationFrame(updateLogoAnimationFrame);
 
         var time = loopTime,
             count = $page.data('count');
@@ -286,26 +285,4 @@ $(document).ready(function() {
     listen("drink.total",       function(data) { updatePage("drink",       data.count); });
     listen("food.total",        function(data) { updatePage("food",        data.count); });
     listen("coffee.total",      function(data) { updatePage("coffee",      data.count); });
-
-
-    // Update svg logo
-    var distantLight = document.getElementById("distantLight"),
-        shadow = document.getElementById("drop-shadow"),
-        logo = document.getElementById("edge-logo"),
-        i = 0,
-        j = 0;
-
-    function updateAnimationFrame() {
-        var si = Math.sin(i += 0.037),
-            cj = Math.cos(j += 0.043),
-            azimuth = Math.atan2(cj, si) * 180 / Math.PI,
-            dx = -si * 4,
-            dy = -cj * 4;
-
-        distantLight.setAttribute("azimuth", azimuth);
-        shadow.style.transform = "translate(" + dx + "px," + (dy + 2) + "px)";
-        logo.style.transform = "translate(" + -dx/2 + "px," + (-dy/2 - 2) + "px)";
-        logoAnimationFrameId = requestAnimationFrame(updateAnimationFrame);
-    }
-
 });
