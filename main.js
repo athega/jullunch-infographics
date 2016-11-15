@@ -12,8 +12,6 @@ $(function() {
         maxItemsLoopTime = 60000,
         subscribedLoopTime = 60000,
         slideLoopTime = 20000,
-        loopTimeoutId,
-        hideNotificationTimeoutId,
         $pages = $('main > div'),
         $subscribedPage;
 
@@ -46,8 +44,8 @@ $(function() {
     function notification(message) {
         var $notification = $('#notification');
         $notification.addClass('active').text(message);
-        clearTimeout(hideNotificationTimeoutId);
-        hideNotificationTimeoutId = setTimeout(function() {
+        clearTimeout(notification.hideTimeoutId);
+        notification.hideTimeoutId = setTimeout(function() {
             $notification.removeClass('active');
         }, 1500);
     }
@@ -74,8 +72,8 @@ $(function() {
         else if (count) {
             time = loopTime + Math.min(maxItems, count) * (maxItemsLoopTime - loopTime) / maxItems;
         }
-        clearTimeout(loopTimeoutId);
-        loopTimeoutId = setTimeout(showRandomPage, time);
+        clearTimeout(showRandomPage.timeoutId);
+        showRandomPage.timeoutId = setTimeout(showRandomPage, time);
     }
 
     function showRandomPage() {
