@@ -58,9 +58,17 @@ $(function() {
         $page.addClass('active');
 
         if (window.logoAnimation) {
-            logoAnimation.pause();
             if (!$page.is('.slide'))
                 logoAnimation.play();
+            else
+                logoAnimation.pause();
+        }
+
+        if (window.companiesBubbles) {
+            if ($page.is('#companies'))
+                companiesBubbles.play();
+            else
+                companiesBubbles.pause();
         }
 
         setRandomPageTimeout($page);
@@ -187,11 +195,10 @@ $(function() {
 
     function updateCompaniesPage(company) {
         var name = 'companies',
-            $page = $pages.filter('#' + name),
-            $list = $page.find('ol');
+            $page = $pages.filter('#' + name);
 
-        if (window.updateCompaniesBubbles)
-            updateCompaniesBubbles(company.name, company.arrived);
+        if (window.companiesBubbles)
+            companiesBubbles.update(company.name, company.arrived);
 
         subscription($page);
     }

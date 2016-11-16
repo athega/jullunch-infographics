@@ -21,9 +21,18 @@ $(function() {
 
     let arrivals = {};
 
-    window.updateCompaniesBubbles = (name, arrived) => {
-        arrivals[name] = arrived;
-        updateBubbles();
+    window.companiesBubbles = {
+        update: function(name, arrived) {
+            // Reveived updated data event, but page may not be visible.
+            arrivals[name] = arrived;
+            updateBubbles();
+        },
+        pause: function() {
+            // Companies page not visible.
+        },
+        play: function() {
+            // Companies page is shown, run animations.
+        }
     };
 
     function d3data(arrivals) {
