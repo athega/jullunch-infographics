@@ -190,7 +190,8 @@ $(function() {
             $page = $pages.filter('#' + name),
             $list = $page.find('ol');
 
-        $list.prepend($('<li>').text(company.name + ', ' + company.arrived));
+        if (window.updateCompaniesBubbles)
+            updateCompaniesBubbles(company.name, company.arrived);
 
         subscription($page);
     }

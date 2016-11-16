@@ -145,6 +145,16 @@ main > .slide > img {
     vertical-align: middle;
 }
 
+#companies > h2 {
+    margin-bottom: 0;
+}
+
+#companies > svg {
+    width: 100%;
+    height: auto;
+    max-height: 60vh;
+}
+
 .number {
     font-family: Oswald, sans-serif;
     display: inline-block;
