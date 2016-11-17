@@ -157,7 +157,11 @@ main > .slide > img {
 
 #companies > svg text {
     font-weight: bold;
-    text-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+    text-shadow: 0 0 8px white;
+}
+
+#companies > svg circle {
+    opacity: 0.8;
 }
 
 .number {

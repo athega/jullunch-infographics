@@ -68,9 +68,10 @@ $(function() {
             .attr('width', (d) => d.r*2)
             .attr('height', (d) => d.r*2);
 
+        var blendModes = ['color', 'color-burn', 'color-dodge', 'hard-light', 'multiply', 'overlay', 'screen', 'soft-light'];
         g2.append('circle')
             .attr('r',  (d)  => d.r)
-            .style('opacity', 0.3)
+            .style('mix-blend-mode', (d) => blendModes[Math.floor(Math.random()*blendModes.length)])
             .style('fill', (d) => color(d.data.name));
 
         g2.append('text')
