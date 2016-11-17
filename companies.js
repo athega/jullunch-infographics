@@ -4,8 +4,9 @@ $(function() {
     const diameter = 640,
         initialTransitionDuration = 12000,
         initialTransitionDelay = 2000,
-        updateTransitionDuration = 800,
-        updateTransitionDelay = 200;
+        updateTransitionDuration = 4000,
+        updateTransitionDelay = 400,
+        randomBubblesInterval = 14000;
 
     const color = d3.scaleOrdinal(d3.schemeCategory10);
 
@@ -29,12 +30,28 @@ $(function() {
            } else {
                data.children.push(data.companies[name] = {name: name, size: Math.random() * 12 + 1}); // TODO: Change random size to: arrived
            }
+           return this;
         },
         pause: function() {
+            clearInterval(updateRandomBubbles.interval);
+            updateRandomBubbles.interval = false;
             resetBubbles();
+            updateBubbles.playing = false;
+            return this;
         },
         play: function() {
+            if (!updateRandomBubbles.interval) {
+                companiesBubbles.update('random1', 0).update('random2', 0);
+                updateRandomBubbles.interval = setInterval(updateRandomBubbles, randomBubblesInterval);
+            }
+
+            if (!updateBubbles.playing) {
+                shuffle(data.children);
+            }
+
             updateBubbles();
+            updateBubbles.playing = true;
+            return this;
         },
     };
 
@@ -49,7 +66,8 @@ $(function() {
         var g1 = node.enter()
             .append('g')
             .attr('class', 'node')
-            .attr('transform', (d) => 'translate(' + diameter/2 + ',' + diameter/2 + ') scale(0)');
+            .attr('transform', (d) => 'translate(' + diameter/2 + ',' + diameter/2 + ') scale(0)')
+            .style('display', (d) => d.data.name == 'random1' || d.data.name == 'random2' ? 'none' : 'inline-block');
 
         var i = 0;
         g1.transition()
@@ -125,4 +143,17 @@ $(function() {
         svg.selectAll('.node').remove();
     }
 
+    function updateRandomBubbles() {
+        companiesBubbles
+            .update('random1', Math.random() * 18 + 1)
+            .update('random2', Math.random() * 18 + 1)
+            .play();
+    }
+
+    function shuffle(a) {
+        for (let i = a.length; i; i--) {
+            let j = Math.floor(Math.random() * i);
+            [a[i - 1], a[j]] = [a[j], a[i - 1]];
+        }
+    }
 });
