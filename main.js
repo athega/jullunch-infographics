@@ -250,11 +250,6 @@ $(function() {
         companies.forEach(updateCompaniesPage);
     });
 
-    // Restore subscription when all initial updates are done.
-    $.when(initState, initGuests, initCompanies).done(function() {
-        subscription.$page = $pages.filter(localStorage.getItem('subscription-page'));
-    });
-
     // Init ad slides
     var initAds = $.get(adsURL, function(data) {
         var $template = $('template#slide'),
@@ -269,7 +264,12 @@ $(function() {
         $template.remove();
     });
 
-    $.when(initAds).done(function() {
+    // When all initial updates are done.
+    $.when(initState, initGuests, initCompanies, initAds).done(function() {
+        // Restore subscription when all initial updates are done.
+        subscription.$page = $pages.filter(localStorage.getItem('subscription-page'));
+
+        // Show default or random page.
         $pages = $('main > div');
         var $defaultPage = $pages.filter(location.hash);
         if ($defaultPage.length)
