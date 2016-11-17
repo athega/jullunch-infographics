@@ -2,9 +2,9 @@ $(function() {
     'use strict';
 
     var eventSourceURL = 'https://jullunch-backend.athega.se/stream',
-        stateDataURL = 'data/register.json',
-        guestsDataURL = 'data/guests.json',
-        companiesDataURL = 'data/companies.json',
+        stateDataURL = 'https://jullunch-backend.athega.se/current_state',
+        guestsDataURL = 'https://jullunch-backend.athega.se/latest_check_ins',
+        companiesDataURL = 'data/companies.json', // TODO: Change to 'https://jullunch-backend.athega.se/companies_toplist',
         adsURL = 'https://assets.athega.se/jullunch/ads.json',
         eventSource = new EventSource(eventSourceURL),
         maxItems = 64,
@@ -232,17 +232,17 @@ $(function() {
     }, watchdogTime);
 
     // Init item data
-    var initState = $.get(stateDataURL, function(data) {
-        updatePage('mulled_wine', data.mulled_wine);
-        updatePage('food', data.food);
-        updatePage('drink', data.drink);
-        updatePage('coffee', data.coffee);
-        updateAttendancePage({arrived: data.arrived, departed: data.departed});
+    var initState = $.get(stateDataURL, function(state) {
+        updatePage('mulled_wine', state.data.mulled_wine);
+        updatePage('food', state.data.food);
+        updatePage('drink', state.data.drink);
+        updatePage('coffee', state.data.coffee);
+        updateAttendancePage({arrived: state.data.arrived, departed: state.data.departed});
     });
 
     // Init latest guests
     var initGuests = $.get(guestsDataURL, function(guests) {
-        guests.forEach(updateGuestsPage);
+        guests.data.forEach(updateGuestsPage);
     });
 
     // Init companies toplist
