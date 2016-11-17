@@ -193,9 +193,13 @@ $(function() {
         subscription($page);
     }
 
+    updateCompaniesPage.companies = {};
     function updateCompaniesPage(company) {
         var name = 'companies',
             $page = $pages.filter('#' + name);
+
+        updateCompaniesPage.companies[company.name] = company.arrived;
+        $page.data('count', Object.keys(updateCompaniesPage.companies).length * 6);
 
         if (window.companiesBubbles)
             companiesBubbles.update(company.name, company.arrived);
