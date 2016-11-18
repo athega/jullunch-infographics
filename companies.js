@@ -6,22 +6,18 @@ $(function() {
         initialTransitionDelay = 2000,
         updateTransitionDuration = 4000,
         updateTransitionDelay = 400,
-        randomBubblesInterval = 14000;
-
-    const color = d3.scaleOrdinal(d3.schemeCategory10);
-
-    const svg = d3.select('#companies').append('svg')
-        .attr('viewBox', '0 0 ' + diameter + ' ' + diameter)
-        .attr('width', diameter)
-        .attr('height', diameter);
-
-    const pack = d3.pack()
-        .size([diameter, diameter]);
-
-    let data = {
-        children: [],
-        companies: {},
-    };
+        randomBubblesInterval = 14000,
+        color = d3.scaleOrdinal(d3.schemeCategory10),
+        svg = d3.select('#companies')
+            .append('svg')
+            .attr('viewBox', '0 0 ' + diameter + ' ' + diameter)
+            .attr('width', diameter)
+            .attr('height', diameter),
+        pack = d3.pack().size([diameter, diameter]),
+        data = {
+            children: [],
+            companies: {},
+        };
 
     window.companiesBubbles = {
         update: function(name, arrived) {
@@ -56,85 +52,82 @@ $(function() {
     };
 
     function updateBubbles() {
-        var root = d3.hierarchy(data)
-            .sum((d) => d.size);
-
-        var node = svg.selectAll('.node')
-            .data(pack(root).leaves());
+        const root = d3.hierarchy(data).sum(d => d.size),
+            node = svg.selectAll('.node').data(pack(root).leaves());
 
         // New nodes
-        var g1 = node.enter()
+        const g1 = node.enter()
             .append('g')
             .attr('class', 'node')
-            .attr('transform', (d) => 'translate(' + diameter/2 + ',' + diameter/2 + ') scale(0)')
-            .style('display', (d) => d.data.name == 'random1' || d.data.name == 'random2' ? 'none' : 'inline-block');
+            .attr('transform', d => 'translate(' + diameter/2 + ',' + diameter/2 + ') scale(0)')
+            .style('display', d => d.data.name == 'random1' || d.data.name == 'random2' ? 'none' : 'inline-block');
 
-        var i = 0;
+        let i = 0;
         g1.transition()
             .duration(initialTransitionDuration)
-            .delay((d) => i++ * initialTransitionDelay)
+            .delay(d => i++ * initialTransitionDelay)
             .ease(d3.easeBounce)
-            .attr('transform', (d) => 'translate(0,0) scale(1)');
+            .attr('transform', d => 'translate(0,0) scale(1)');
 
-        var g2 = g1.append('g')
-            .attr('transform', (d) => 'translate(' + d.x + ',' + d.y + ')')
+        const g2 = g1.append('g')
+            .attr('transform', d => 'translate(' + d.x + ',' + d.y + ')')
 
         g2.append('image')
             .attr('xlink:href', 'images/bubble-background.png')
-            .attr('x', (d) => -d.r)
-            .attr('y', (d) => -d.r)
-            .attr('width', (d) => d.r*2)
-            .attr('height', (d) => d.r*2);
+            .attr('x', d => -d.r)
+            .attr('y', d => -d.r)
+            .attr('width', d => d.r * 2)
+            .attr('height', d => d.r * 2);
 
-        var blendModes = ['color', 'color-burn', 'color-dodge', 'hard-light', 'multiply', 'overlay', 'screen', 'soft-light'];
+        const blendModes = ['color', 'color-burn', 'color-dodge', 'hard-light', 'multiply', 'overlay', 'screen', 'soft-light'];
         g2.append('circle')
-            .attr('r',  (d)  => d.r)
-            .style('mix-blend-mode', (d) => blendModes[Math.floor(Math.random()*blendModes.length)])
-            .style('fill', (d) => color(d.data.name));
+            .attr('r', d => d.r)
+            .style('mix-blend-mode', d => blendModes[Math.floor(Math.random()*blendModes.length)])
+            .style('fill', d => color(d.data.name));
 
         g2.append('text')
             .attr('dy', '.3em')
             .style('text-anchor', 'middle')
             .attr('lengthAdjust', 'spacingAndGlyphs')
-            .attr('textLength', (d) => d.r * 1.6)
-            .style('font-size', (d) => (d.r*0.9 - d.r*0.8 * Math.min(24, d.data.name.length)/24 ) + 'px')
-            .text((d) => d.data.name);
+            .attr('textLength', d => d.r * 1.6)
+            .style('font-size', d => (d.r*0.9 - d.r*0.8 * Math.min(24, d.data.name.length)/24 ) + 'px')
+            .text(d => d.data.name);
 
         // Updates
-        var i = 0;
+        i = 0;
         node.select('g')
             .transition()
             .duration(updateTransitionDuration)
-            .delay((d) => i++ * updateTransitionDelay)
+            .delay(d => i++ * updateTransitionDelay)
             .ease(d3.easeBounce)
-            .attr('transform', (d) => 'translate(' + d.x + ',' + d.y + ') scale(1)');
+            .attr('transform', d => 'translate(' + d.x + ',' + d.y + ') scale(1)');
 
-        var i = 0;
+        i = 0;
         node.select('image')
             .transition()
             .duration(updateTransitionDuration)
-            .delay((d) => i++ * updateTransitionDelay)
+            .delay(d => i++ * updateTransitionDelay)
             .ease(d3.easeBounce)
-            .attr('x', (d) => -d.r)
-            .attr('y', (d) => -d.r)
-            .attr('width', (d) => d.r*2)
-            .attr('height', (d) => d.r*2);
+            .attr('x', d => -d.r)
+            .attr('y', d => -d.r)
+            .attr('width', d => d.r * 2)
+            .attr('height', d => d.r * 2);
 
-        var i = 0;
+        i = 0;
         node.select('circle')
             .transition()
             .duration(updateTransitionDuration)
-            .delay((d) => i++ * updateTransitionDelay)
+            .delay(d => i++ * updateTransitionDelay)
             .ease(d3.easeBounce)
-            .attr('r', (d) => d.r);
+            .attr('r', d => d.r);
 
-        var i = 0;
+        i = 0;
         node.select('text')
             .transition()
             .duration(updateTransitionDuration)
-            .delay((d) => i++ * updateTransitionDelay)
-            .attr('textLength', (d) => d.r * 1.6)
-            .style('font-size', (d) => (d.r*0.9 - d.r*0.8 * Math.min(24, d.data.name.length)/24 ) + 'px');
+            .delay(d => i++ * updateTransitionDelay)
+            .attr('textLength', d => d.r * 1.6)
+            .style('font-size', d => (d.r*0.9 - d.r*0.8 * Math.min(24, d.data.name.length)/24 ) + 'px');
 
         node.exit().remove();
     }
