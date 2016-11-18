@@ -1,0 +1,19 @@
+{
+  "name": "jullunch-infographics",
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-preset-es2015": "^6.18.0"
+  },
+  "scripts": {
+    "build": "cat lib/jquery-3.1.1.min.js lib/d3.v4.min.js > build/app.js; ./node_modules/.bin/babel --presets es2015 --minified --no-comments src/main.js src/logo.js src/companies.js >> build/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/athega/jullunch-infographics.git"
+  },
+  "author": "Johan Beronius",
+  "bugs": {
+    "url": "https://github.com/athega/jullunch-infographics/issues"
+  },
+  "homepage": "https://athega.github.io/jullunch-infographics/"
+}
