@@ -83,7 +83,7 @@ $(function() {
         g2.append('circle')
             .attr('r', d => d.r)
             .style('mix-blend-mode', d => blendModes[Math.floor(Math.random()*blendModes.length)])
-            .style('fill', d => color(d.data.name));
+            .style('fill', d => color(Math.random()));
 
         g2.append('text')
             .attr('dy', '.3em')
