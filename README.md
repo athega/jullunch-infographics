@@ -1,8 +1,12 @@
 # Jullunch Infographics
 
-Build script bundle:
+Build 'libs' and 'app' script bundles:
 
 `npm run-script build`
+
+Watch 'src' folder and build 'app' script bundle:
+
+`npm run-script watch`
 
 Event test scripts:
 
