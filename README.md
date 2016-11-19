@@ -31,6 +31,8 @@ Watch 'src' folder and build 'app' script bundle:
 
 ## Event test scripts:
 
+First copy `events/nats-config.js.sample` to `events/nats-config.js` and edit 'token'.
+
 `node events/nats-publish.js`
 
 `node events/nats-subscribe.js`
