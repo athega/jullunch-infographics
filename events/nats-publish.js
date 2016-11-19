@@ -1,10 +1,16 @@
-var config = require('./nats-config'),
-    nats = require('nats').connect({
-       url: 'nats://athega.se:4222',
+var Nats = require('nats'),
+    config = require('./nats-config'),
+    url = 'nats://athega.se:4222',
+    nats = Nats.connect({
+       url: url,
        token: config.token
     }),
-    event = 'mulled_wine.total',
+    event = 'check-in',
     events = {
+        'check-in': {
+            rfid: "1234"
+        },
+
         'guest-arrival': {
             name: "Kalle Stropp",
             company: "Athega",
@@ -48,6 +54,7 @@ var config = require('./nats-config'),
     };
 
 nats.publish('jullunch.' + event, JSON.stringify(events[event]), function() {
+    console.log('Published "'+ event + '" to '+ url);
     nats.close();
     process.exit();
 });

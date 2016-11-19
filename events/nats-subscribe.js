@@ -1,9 +1,12 @@
-var config = require('./nats-config'),
-    nats = require('nats').connect({
-       url: 'nats://athega.se:4222',
+var Nats = require('nats'),
+    config = require('./nats-config'),
+    url = 'nats://athega.se:4222',
+    nats = Nats.connect({
+       url: url,
        token: config.token
-    });
+    }),
+    event = 'jullunch.*';
 
-nats.subscribe('jullunch.mulled_wine.total', function(data, reply, name) {
-    console.log(name, data);
-});
+nats.subscribe(event, console.log);
+
+console.log('Subscribing to "'+ event + '" from '+ url);
