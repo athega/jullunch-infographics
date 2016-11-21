@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+            body > svg,
+            body > canvas {
+                width: 512px;
+                max-width: 100%;
+                height: auto;
+                border: 1px solid black;
+            }
+        </style>
+    </head>
+    <body>
+
+<svg width="512" height="512" viewBox="0 0 512 512"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <defs>
+        <filter id="barrel">
+          <feImage id="filter-image" xlink:href="" result="barrel" x="16" y="16" width="256" height="256" />
+          <feDisplacementMap in2="barrel" in="SourceGraphic" xChannelSelector="R" yChannelSelector="G" scale="64"></feDisplacementMap>
+          <feComposite operator="in" in2="barrel"/>
+        </filter>
+    </defs>
+
+<image xlink:href="https://i.imgsafe.org/3353aef52f.jpg" x="0" y="0" height="512" width="512"/>
+<image xlink:href="https://i.imgsafe.org/3353aef52f.jpg" x="-16" y="-16" height="512" width="512" filter="url(#barrel)"/>
+
+</svg>
+
+
+<canvas width="256" height="256" id="canvas"></canvas>
+
+<script>
+'use strict';
+var canvas = document.getElementById('canvas'),
+    barrel = document.getElementById('filter-image'),
+    width = canvas.width,
+    height = canvas.height,
+    ctx = canvas.getContext('2d');
+
+for (var y = 0; y < height; y++) {
+    for (var x = 0; x < width; x++) {
+        var dx = x - 128,
+            dy = y - 128,
+            l = Math.sqrt(dx * dx + dy * dy),
+            a = l < 128 ? Math.asin(l/128) : 0,
+            z = l < 128 ? 255 - Math.cos(a) * 255 : 0,
+            r = l < 128 ? 128 + (dx / 128) * (z / 255) * 128 : 0,
+            g = l < 128 ? 128 + (dy / 128) * (z / 255) * 128 : 0,
+            o = l >= 124 ? Math.max(0, 1 - (l-124)/4) : 1;
+
+        ctx.fillStyle = 'rgba('+Math.floor(r)+','+Math.floor(g)+',0,'+o+')';
+        ctx.fillRect(x,y,1,1);
+    }
+}
+
+barrel.setAttribute('xlink:href', canvas.toDataURL());
+
+var tx = 0,
+    ty = 0;
+requestAnimationFrame(function updateAnimationFrame() {
+    tx += 0.027;
+    ty += 0.031;
+    barrel.setAttribute('x', 128 + Math.sin(tx) * 120);
+    barrel.setAttribute('y', 128 + Math.cos(ty) * 120);
+    requestAnimationFrame(updateAnimationFrame);
+});
+
+</script>
+    </body>
+</html>
