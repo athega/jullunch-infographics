@@ -335,10 +335,10 @@ ol {
 #guests > ol > li > img {
     position: absolute;
     right: 100%;
-    width: 1.4em;
-    height: 1.4em;
-    vertical-align: middle;
-    margin-right: 0.5em;
+    top: -0.3em;
+    width: 2em;
+    height: 2em;
+    margin-right: 1em;
     border-radius: 50%;
     background-size: cover;
     background-repeat: no-repeat;
