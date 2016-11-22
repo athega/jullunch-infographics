@@ -273,10 +273,98 @@ main > .slide > img {
     }
 }
 
+
 ol {
     text-align: left;
     display: inline-block;
     margin: 0;
+    padding: 0;
+}
+
+#guests > ol {
+    opacity: 1;
+    transition: opacity 0.6s;
+}
+
+#guests > ol.update {
+    opacity: 0;
+}
+
+@keyframes guests-wave-x {
+    0% {
+        left: -1.2em;
+    }
+
+    100% {
+        left: 1.2em;
+    }
+}
+
+@keyframes guests-wave-scale {
+    0% {
+        transform: translateY(-0.3em) scale(0.8);
+    }
+
+    100% {
+        transform: translateY(0.3em) scale(1.0);
+    }
+}
+
+#guests > ol > li {
+    position: relative;
+    list-style: none;
+    margin-bottom: 0.5em;
+    animation:
+        guests-wave-x 4s ease-in-out infinite alternate,
+        guests-wave-scale 4s ease-in-out infinite alternate;
+}
+
+#guests > ol > li:nth-of-type(1) { animation-delay: -2.8s, -4.8s; }
+#guests > ol > li:nth-of-type(2) { animation-delay: -2.4s, -4.4s; }
+#guests > ol > li:nth-of-type(3) { animation-delay: -2.0s, -4.0s; }
+#guests > ol > li:nth-of-type(4) { animation-delay: -1.6s, -3.6s; }
+#guests > ol > li:nth-of-type(5) { animation-delay: -1.2s, -3.2s; }
+#guests > ol > li:nth-of-type(6) { animation-delay: -0.8s, -2.8s; }
+#guests > ol > li:nth-of-type(7) { animation-delay: -0.4s, -2.4s; }
+#guests > ol > li:nth-of-type(8) { animation-delay: -0.0s, -2.0s; }
+
+#guests > ol.animation-reset > li {
+    animation-name: none;
+}
+
+#guests > ol > li > img {
+    position: absolute;
+    right: 100%;
+    width: 1.4em;
+    height: 1.4em;
+    vertical-align: middle;
+    margin-right: 0.5em;
+    border-radius: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-blend-mode: hard-light;
+}
+
+#guests > ol > li > div {
+  text-transform: uppercase;
+  font-size: 0.6em;
+  line-height: 0.8;
+  color: #444;
+}
+
+#guests > ol > li > time {
+    position: absolute;
+    left: 100%;
+    margin-left: 0.5em;
+    white-space: nowrap;
+    font-size: 0.8em;
+    color: #ccc;
+}
+
+#guests > ol > li > time::before {
+    content: "\023F1";
+    margin-right: 0.1em;
 }
 
 ul {

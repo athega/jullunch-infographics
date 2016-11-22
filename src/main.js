@@ -188,7 +188,22 @@ $(function() {
             $page = $pages.filter('#' + name),
             $list = $page.find('ol');
 
-        $list.prepend($('<li>').text(guest.name + ', ' + guest.company));
+        $list.addClass('update');
+        setTimeout(function() {
+            $list.addClass('animation-reset').find('li:gt(6)').remove();
+            $list.prepend($('<li>')
+                .text(guest.name)
+                .prepend($('<div>').text(guest.company))
+                .prepend($('<img>').css({
+                    'background-image': 'url("' + (guest.image_url && guest.image_url.indexOf('.uploads.im/') == -1 ? guest.image_url : 'images/santa.png') + '"), url("images/bubble-background.png")',
+                    'background-color': d3.schemeCategory10[Math.floor(Math.random()*d3.schemeCategory10.length)]
+                }))
+                .append(guest.arrived_at && $('<time>', {datetime: guest.arrived_at}).text( guest.arrived_at.split('T')[1].split(/:\d+\./)[0] ))
+            );
+            setTimeout(function() {
+                $list.removeClass('update animation-reset');
+            }, 32);
+        }, 600);
 
         subscription($page);
     }

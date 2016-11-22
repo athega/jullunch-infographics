@@ -5,7 +5,7 @@ var Nats = require('nats'),
        url: url,
        token: config.token
     }),
-    event = 'check-in',
+    event = 'guest-arrival',
     events = {
         'check-in': {
             rfid: "1234"
@@ -14,6 +14,8 @@ var Nats = require('nats'),
         'guest-arrival': {
             name: "Kalle Stropp",
             company: "Athega",
+            image_url: '',
+            arrived_at: '2016-11-22T16:01:10.649+01:00',
             arrived: 16,
             'arrived-company': 4,
         },
