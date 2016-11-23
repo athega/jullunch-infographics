@@ -33,7 +33,7 @@ body > main::before,
 body > main::after {
     content: "";
     position: absolute;
-    z-index: -1;
+    z-index: 1;
     width: 160px;
     height: 80px;
     background-image: url('images/dekoration.png');
@@ -73,7 +73,7 @@ body > h1 {
 body > h1 > img,
 body > h1 > svg {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     width: 528px;
     height: 228px;
 }
@@ -281,10 +281,41 @@ ol {
     padding: 0;
 }
 
-#guests > ol {
+#guests > h2 {
+    margin-bottom: 0;
+}
+
+#guests > span {
+    position: relative;
+    display: inline-block;
+    line-height: 0;
+}
+
+#guests > span::before,
+#guests > span::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2em;
+    z-index: 1;
+}
+
+#guests > span::before {
+    top: -1px;
+    background-image: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
+}
+
+#guests > span::after {
+    bottom: -1px;
+    background-image: linear-gradient(to top, white 0%, rgba(255,255,255,0) 100%);
+}
+
+#guests > span > ol {
     height: 50vh;
     overflow: hidden;
     padding: 1em 5em;
+    line-height: normal;
 }
 
 @keyframes guests-wave-x {
@@ -307,7 +338,7 @@ ol {
     }
 }
 
-#guests > ol > li {
+#guests ol > li {
     position: relative;
     list-style: none;
     margin-bottom: 0.5em;
@@ -318,17 +349,17 @@ ol {
         pop-in 1s cubic-bezier(0.4, 2, 0.4, 0.6) backwards;
 }
 
-#guests > ol.update > li {
+#guests ol.update > li {
     transform: scale(0);
     transition: transform ease-in 0.2s;
     animation-name: guests-wave-x , guests-wave-y, none;
 }
 
-#guests > ol.animation-reset > li {
+#guests ol.animation-reset > li {
     display: none;
 }
 
-#guests > ol > li > img {
+#guests ol > li > img {
     position: absolute;
     right: 100%;
     top: -0.3em;
@@ -342,14 +373,14 @@ ol {
     background-blend-mode: hard-light;
 }
 
-#guests > ol > li > div {
+#guests ol > li > div {
   text-transform: uppercase;
   font-size: 0.6em;
   line-height: 0.8;
   color: #444;
 }
 
-#guests > ol > li > time {
+#guests ol > li > time {
     position: absolute;
     left: 100%;
     margin-left: 0.5em;
@@ -358,7 +389,7 @@ ol {
     color: #ccc;
 }
 
-#guests > ol > li > time::before {
+#guests ol > li > time::before {
     content: "\023F1";
     margin-right: 0.1em;
 }

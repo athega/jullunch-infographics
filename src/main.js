@@ -190,7 +190,7 @@ $(function() {
 
         $list.addClass('update');
         setTimeout(function() {
-            $list.addClass('animation-reset').find('li:gt(16)').remove();
+            $list.addClass('animation-reset').stop(true).prop('scrollTop', 0).find('li:gt(16)').remove();
             $list.prepend($('<li>')
                 .text(guest.name)
                 .prepend($('<div>').text(guest.company))
@@ -207,12 +207,29 @@ $(function() {
                        (0 + i * 1.5) + 's';    // pop-in
             })
             .css('transition-delay', function(i) {
-                return (8  * 0.1 - i * 0.1) + 's';    // pop-out
+                return (8  * 0.1 - i * 0.1) + 's'; // pop-out
             });
 
             setTimeout(function() {
                 $list.removeClass('update animation-reset');
             }, 32);
+
+
+            function scrollDown() {
+                updateGuestsPage.scrollDuration = 1.5 * 1000 * $list.prop('scrollTopMax') / itemHeight;
+                $list.animate({'scrollTop': $list.prop('scrollTopMax')}, {duration: updateGuestsPage.scrollDuration, complete: function() { updateGuestsPage.scrollTimeOut = setTimeout(scrollUp, 2000) }});
+            }
+
+            function scrollUp() {
+                $list.animate({'scrollTop': 0}, {duration: updateGuestsPage.scrollDuration, complete: function() { updateGuestsPage.scrollTimeOut = setTimeout(scrollDown, 2000) }});
+            }
+
+            var itemHeight = $list.find('li').outerHeight(true),
+                visibleItems = $list.innerHeight() / itemHeight,
+                scrollDelay = 1.5 * 1000 * (visibleItems - 1) - 500;
+
+            clearTimeout(updateGuestsPage.scrollTimeOut);
+            updateGuestsPage.scrollTimeOut = setTimeout(scrollDown, scrollDelay);
         }, 1000);
 
         subscription($page);
