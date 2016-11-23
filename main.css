@@ -312,7 +312,7 @@ ol {
 }
 
 #guests > span > ol {
-    height: 50vh;
+    height: 60vh;
     overflow: hidden;
     padding: 1em 5em;
     line-height: normal;
