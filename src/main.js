@@ -190,7 +190,7 @@ $(function() {
 
         $list.addClass('update');
         setTimeout(function() {
-            $list.addClass('animation-reset').find('li:gt(6)').remove();
+            $list.addClass('animation-reset').find('li:gt(16)').remove();
             $list.prepend($('<li>')
                 .text(guest.name)
                 .prepend($('<div>').text(guest.company))
@@ -199,11 +199,21 @@ $(function() {
                     'background-color': d3.schemeCategory10[Math.floor(Math.random()*d3.schemeCategory10.length)]
                 }))
                 .append(guest.arrived_at && $('<time>', {datetime: guest.arrived_at}).text( guest.arrived_at.split('T')[1].split(/:\d+\./)[0] ))
-            );
+            )
+            .children()
+            .css('animation-delay', function(i) {
+                return (0 + i * 0.4) + 's,' + // guests-wave-x
+                       (-2 + i * 0.4) + 's,' + // guests-wave-y
+                       (0 + i * 1.5) + 's';    // pop-in
+            })
+            .css('transition-delay', function(i) {
+                return (8  * 0.1 - i * 0.1) + 's';    // pop-out
+            });
+
             setTimeout(function() {
                 $list.removeClass('update animation-reset');
             }, 32);
-        }, 600);
+        }, 1000);
 
         subscription($page);
     }
