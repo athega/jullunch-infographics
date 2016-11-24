@@ -219,7 +219,7 @@ $(function() {
                 .text(guest.name)
                 .prepend($('<div>').text(guest.company))
                 .prepend($('<img>').css({
-                    'background-image': 'url("' + (guest.image_url && guest.image_url.indexOf('.uploads.im/') == -1 ? guest.image_url : 'images/santa.png') + '"), url("images/bubble-background.png")',
+                    'background-image': 'url("images/bubble-background.png"), url("' + (guest.image_url && guest.image_url.indexOf('.uploads.im/') == -1 ? guest.image_url : 'images/santa.png') + '")',
                     'background-color': d3.schemeCategory10[Math.floor(Math.random()*d3.schemeCategory10.length)]
                 }))
                 .append(guest.arrived_at && $('<time>', {datetime: guest.arrived_at}).text( guest.arrived_at.split('T')[1].split(/:\d+\./)[0] ))
@@ -264,13 +264,24 @@ $(function() {
     function updateArrivalPage(guest) {
         var name = 'arrival',
             $page = $pages.filter('#' + name),
-            $photo = $page.find('img');
+            $photo = $page.find('img'),
+            $name = $page.find('h3').empty();
 
-        $page.find('span.name').text(guest.name);
+        for (var i in guest.name)
+            $name.append($('<b>').html(guest.name[i] != ' ' ? guest.name[i] : '&nbsp;').css('animation-delay', (-10 + i * 0.1) + 's,' + (i * 0.4) + 's'));
+
         $page.find('span.arrived').text(guest.arrived);
         $page.find('span.arrived-company').text(guest['arrived-company']);
         $page.find('span.company').text(guest.company);
-        $photo.attr('src', guest.img_url);
+
+        if (guest.arrived_at)
+            $page.find('time').attr('datetime', guest.arrived_at).text( guest.arrived_at.split('T')[1].split(/:\d+\./)[0] );
+
+        if (guest.image_url)
+            $photo.replaceWith($('<img>').css({
+                'background-image': 'url("images/bubble-background.png"), url("' + guest.image_url + '")',
+                'background-color': d3.schemeCategory10[Math.floor(Math.random()*d3.schemeCategory10.length)]
+            }));
 
         subscription($page);
     }
