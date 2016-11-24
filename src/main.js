@@ -187,7 +187,6 @@ $(function() {
     $pages.filter('#guests').on('play', function(event) {
         var $page = $(this),
             $list = $page.find('ol');
-
         $list.addClass('animation-reset').stop(true).prop('scrollTop', 0);
         setTimeout(function() {
             $list.removeClass('update animation-reset');
@@ -198,7 +197,7 @@ $(function() {
 
             var itemHeight = $list.find('li').outerHeight(true),
                 visibleItems = $list.innerHeight() / itemHeight,
-                scrollTopMax = $list.prop('scrollTopMax'),
+                scrollTopMax = $list.prop('scrollHeight') - $list.innerHeight(),
                 scrollDelay = 1.5 * 1000 * (visibleItems - 1) - 500,
                 scrollDuration = 1.5 * 1000 * scrollTopMax / itemHeight,
                 scrollDirection;
