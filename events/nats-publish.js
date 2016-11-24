@@ -43,8 +43,8 @@ var Nats = require('nats'),
                 'https://pbs.twimg.com/profile_images/786665630544134146/R79FgreO_400x400.jpg',
             ]),
             arrived_at: new Date(Date.now() + Math.random() * 86400000).toISOString(),
-            arrived: Math.floor(Math.random() * 14 + 2),
-            'arrived-company': Math.floor(Math.random() * 8 + 1),
+            arrived: Math.floor(Math.random() * 96 + 2),
+            'arrived-company': Math.floor(Math.random() * 28 + 1),
         },
 
         'guest-departure': {

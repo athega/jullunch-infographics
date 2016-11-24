@@ -270,8 +270,28 @@ $(function() {
         for (var i in guest.name)
             $name.append($('<b>').html(guest.name[i] != ' ' ? guest.name[i] : '&nbsp;').css('animation-delay', (-10 + i * 0.1) + 's,' + (i * 0.4) + 's'));
 
-        $page.find('span.arrived').text(guest.arrived);
-        $page.find('span.arrived-company').text(guest['arrived-company']);
+        if (guest.arrived > 0) {
+            var $arrived = $page.find('span.arrived'),
+                arrivedCount = 1;
+            clearInterval(updateArrivalPage.arrivedInterval);
+            updateArrivalPage.arrivedInterval = setInterval(function() {
+                $arrived.text(arrivedCount);
+                if (++arrivedCount >= guest.arrived)
+                    clearInterval(updateArrivalPage.arrivedInterval);
+            }, 400 - Math.min(100, guest.arrived) * 3);
+        }
+
+        if (guest['arrived-company'] > 0) {
+            var $arrivedCompany = $page.find('span.arrived-company'),
+                arrivedCompanyCount = 1;
+            clearInterval(updateArrivalPage.arrivedCompanyInterval);
+            updateArrivalPage.arrivedCompanyInterval = setInterval(function() {
+                $arrivedCompany.text(arrivedCompanyCount);
+                if (++arrivedCompanyCount >= guest['arrived-company'])
+                    clearInterval(updateArrivalPage.arrivedCompanyInterval);
+            }, 400 - Math.min(100, guest['arrived-company']) * 3);
+        }
+
         $page.find('span.company').text(guest.company);
 
         if (guest.arrived_at)

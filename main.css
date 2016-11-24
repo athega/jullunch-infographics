@@ -213,6 +213,14 @@ main > .slide > img {
     font-size: 110%;
 }
 
+#arrival .arrived,
+#arrival .arrived-company {
+    display: inline-block;
+    font-weight: bold;
+    min-width: 1em;
+    font-weight: bold;
+}
+
 #departure img {
     height: 23px;
     background-color: #09C;
