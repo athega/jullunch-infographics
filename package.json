@@ -7,13 +7,17 @@
     "nats": "git+https://github.com/nats-io/node-nats.git"
   },
   "scripts": {
-    "build": "cat lib/jquery-3.1.1.min.js lib/d3.v4.min.js > build/libs.js; ./node_modules/.bin/babel src/main.js src/logo.js src/companies.js --out-file build/app.js",
-    "watch": "./node_modules/.bin/babel --watch src/main.js src/logo.js src/companies.js --out-file build/app.js"
+    "build": "cat lib/jquery-3.1.1.min.js lib/d3.v4.min.js > build/libs.js; ./node_modules/.bin/babel src/*.js --out-file build/app.js",
+    "watch": "./node_modules/.bin/babel --watch src/*.js --out-file build/app.js"
   },
   "babel": {
     "presets": [
       "es2015"
     ],
+    "plugins": [
+      "./src/includeScript.js"
+    ],
+    "only": "src/app.js",
     "minified": true,
     "comments": false
   },
