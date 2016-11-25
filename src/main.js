@@ -37,8 +37,8 @@ $(function() {
     }
 
     function subscription($page) {
-        if ($page.is(subscription.$page)) {
-            showPage(subscription.$page);
+        if ($page.is(subscription.$page) || $page.is('.active')) {
+            showPage($page);
         }
     }
 
@@ -234,7 +234,7 @@ $(function() {
                 return (8  * 0.1 - i * 0.1) + 's'; // pop-out
             });
 
-            if (playing) showPage($page);
+            subscription($page);
         }
 
         if (playing) {
@@ -242,7 +242,6 @@ $(function() {
             setTimeout(update, 1000);
         } else {
             update();
-            subscription($page);
         }
     }
 
@@ -261,6 +260,39 @@ $(function() {
         subscription($page);
     }
 
+
+    $pages.filter('#arrival').on('play', function(event) {
+        var $page = $(this);
+
+        var $arrived = $page.find('span.arrived'),
+            arrivedTarget = $arrived.data('count'),
+            arrivedCount = 1;
+
+        if (arrivedTarget > 0) {
+            $arrived.text('…');
+            clearInterval(updateArrivalPage.arrivedInterval);
+            updateArrivalPage.arrivedInterval = setInterval(function() {
+                $arrived.text(arrivedCount);
+                if (++arrivedCount >= arrivedTarget)
+                    clearInterval(updateArrivalPage.arrivedInterval);
+            }, 400 - Math.min(100, arrivedTarget) * 3);
+        }
+
+        var $arrivedCompany = $page.find('span.arrived-company'),
+            arrivedCompanyTarget = $arrivedCompany.data('count'),
+            arrivedCompanyCount = 1;
+
+        if (arrivedCompanyTarget > 0) {
+            $arrivedCompany.text('…');
+            clearInterval(updateArrivalPage.arrivedCompanyInterval);
+            updateArrivalPage.arrivedCompanyInterval = setInterval(function() {
+                $arrivedCompany.text(arrivedCompanyCount);
+                if (++arrivedCompanyCount >= arrivedCompanyTarget)
+                    clearInterval(updateArrivalPage.arrivedCompanyInterval);
+            }, 400 - Math.min(100, arrivedCompanyTarget) * 3);
+        }
+    });
+
     function updateArrivalPage(guest) {
         var name = 'arrival',
             $page = $pages.filter('#' + name),
@@ -270,28 +302,8 @@ $(function() {
         for (var i in guest.name)
             $name.append($('<b>').html(guest.name[i] != ' ' ? guest.name[i] : '&nbsp;').css('animation-delay', (-10 + i * 0.1) + 's,' + (i * 0.4) + 's'));
 
-        if (guest.arrived > 0) {
-            var $arrived = $page.find('span.arrived'),
-                arrivedCount = 1;
-            clearInterval(updateArrivalPage.arrivedInterval);
-            updateArrivalPage.arrivedInterval = setInterval(function() {
-                $arrived.text(arrivedCount);
-                if (++arrivedCount >= guest.arrived)
-                    clearInterval(updateArrivalPage.arrivedInterval);
-            }, 400 - Math.min(100, guest.arrived) * 3);
-        }
-
-        if (guest['arrived-company'] > 0) {
-            var $arrivedCompany = $page.find('span.arrived-company'),
-                arrivedCompanyCount = 1;
-            clearInterval(updateArrivalPage.arrivedCompanyInterval);
-            updateArrivalPage.arrivedCompanyInterval = setInterval(function() {
-                $arrivedCompany.text(arrivedCompanyCount);
-                if (++arrivedCompanyCount >= guest['arrived-company'])
-                    clearInterval(updateArrivalPage.arrivedCompanyInterval);
-            }, 400 - Math.min(100, guest['arrived-company']) * 3);
-        }
-
+        $page.find('span.arrived').data('count', guest.arrived).text('…');
+        $page.find('span.arrived-company').data('count', guest['arrived-company']).text('…');
         $page.find('span.company').text(guest.company);
 
         if (guest.arrived_at)
@@ -305,6 +317,7 @@ $(function() {
 
         subscription($page);
     }
+
 
     function updateDeparturePage(guest) {
         var name = 'departure',
