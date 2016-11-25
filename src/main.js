@@ -97,7 +97,7 @@ $(function() {
         showPage($page);
     }
 
-    function updatePage(name, count) {
+    function updateItemPage(name, count) {
         var $page = $pages.filter('#' + name),
             $list = $page.find('ul');
 
@@ -261,60 +261,9 @@ $(function() {
     }
 
 
-    $pages.filter('#arrival').on('play', function(event) {
-        var $page = $(this);
-
-        var $arrived = $page.find('span.arrived'),
-            arrivedTarget = $arrived.data('count'),
-            arrivedCount = 1;
-
-        if (arrivedTarget > 0) {
-            $arrived.text('…');
-            clearInterval(updateArrivalPage.arrivedInterval);
-            updateArrivalPage.arrivedInterval = setInterval(function() {
-                $arrived.text(arrivedCount);
-                if (++arrivedCount >= arrivedTarget)
-                    clearInterval(updateArrivalPage.arrivedInterval);
-            }, 400 - Math.min(100, arrivedTarget) * 3);
-        }
-
-        var $arrivedCompany = $page.find('span.arrived-company'),
-            arrivedCompanyTarget = $arrivedCompany.data('count'),
-            arrivedCompanyCount = 1;
-
-        if (arrivedCompanyTarget > 0) {
-            $arrivedCompany.text('…');
-            clearInterval(updateArrivalPage.arrivedCompanyInterval);
-            updateArrivalPage.arrivedCompanyInterval = setInterval(function() {
-                $arrivedCompany.text(arrivedCompanyCount);
-                if (++arrivedCompanyCount >= arrivedCompanyTarget)
-                    clearInterval(updateArrivalPage.arrivedCompanyInterval);
-            }, 400 - Math.min(100, arrivedCompanyTarget) * 3);
-        }
-    });
-
     function updateArrivalPage(guest) {
-        var name = 'arrival',
-            $page = $pages.filter('#' + name),
-            $photo = $page.find('img'),
-            $name = $page.find('h3').empty();
-
-        for (var i in guest.name)
-            $name.append($('<b>').html(guest.name[i] != ' ' ? guest.name[i] : '&nbsp;').css('animation-delay', (-10 + i * 0.1) + 's,' + (i * 0.4) + 's'));
-
-        $page.find('span.arrived').data('count', guest.arrived).text('…');
-        $page.find('span.arrived-company').data('count', guest['arrived-company']).text('…');
-        $page.find('span.company').text(guest.company);
-
-        if (guest.arrived_at)
-            $page.find('time').attr('datetime', guest.arrived_at).text( guest.arrived_at.split('T')[1].split(/:\d+\./)[0] );
-
-        if (guest.image_url)
-            $photo.replaceWith($('<img>').css({
-                'background-image': 'url("images/bubble-background.png"), url("' + guest.image_url + '")',
-                'background-color': d3.schemeCategory10[Math.floor(Math.random()*d3.schemeCategory10.length)]
-            }));
-
+        var $page = $pages.filter('#arrival');
+        $page.triggerHandler('update', guest);
         subscription($page);
     }
 
@@ -335,10 +284,10 @@ $(function() {
 
     // Init item data
     var initState = $.get(stateDataURL, function(state) {
-        updatePage('mulled_wine', state.data.mulled_wine);
-        updatePage('food', state.data.food);
-        updatePage('drink', state.data.drink);
-        updatePage('coffee', state.data.coffee);
+        updateItemPage('mulled_wine', state.data.mulled_wine);
+        updateItemPage('food', state.data.food);
+        updateItemPage('drink', state.data.drink);
+        updateItemPage('coffee', state.data.coffee);
         updateAttendancePage({arrived: state.data.arrived, departed: state.data.departed});
     });
 
@@ -435,8 +384,8 @@ $(function() {
     listen("guests-arrived.total",  function(data) { updateAttendancePage({arrived: data.count}); });
     listen("guests-departed.total", function(data) { updateAttendancePage({departed: data.count}); });
     listen("company-arrived", updateCompaniesPage);
-    listen("mulled_wine.total", function(data) { updatePage("mulled_wine", data.count); });
-    listen("drink.total",       function(data) { updatePage("drink",       data.count); });
-    listen("food.total",        function(data) { updatePage("food",        data.count); });
-    listen("coffee.total",      function(data) { updatePage("coffee",      data.count); });
+    listen("mulled_wine.total", function(data) { updateItemPage("mulled_wine", data.count); });
+    listen("drink.total",       function(data) { updateItemPage("drink",       data.count); });
+    listen("food.total",        function(data) { updateItemPage("food",        data.count); });
+    listen("coffee.total",      function(data) { updateItemPage("coffee",      data.count); });
 });
