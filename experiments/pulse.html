@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+            body > canvas {
+                width: 1200px;
+                max-width: 100%;
+                height: 6px;
+                border: 2px solid black;
+            }
+        </style>
+    </head>
+    <body>
+
+    <canvas width="1200" height="1" id="canvas"></canvas>
+
+<script>
+'use strict';
+var canvas = document.getElementById('canvas'),
+    width = canvas.width,
+    height = canvas.height,
+    ctx = canvas.getContext('2d'),
+    imageData = ctx.createImageData(width, height),
+    buffer = imageData.data,
+    l = buffer.length,
+    t = 0;
+
+for (var x = 3; x < l; x += 4) {
+    buffer[x] = 255;
+}
+
+requestAnimationFrame(function updateAnimationFrame() {
+
+    t++;
+
+    var p = t / 60,
+        o = 0.009;
+    for (var x = 0; x < l; x += 16) {
+        buffer[x+8] = buffer[x+4] = buffer[x] = Math.pow(Math.abs(Math.sin(p += o)), 128) * 255;
+    }
+
+    var p = -t / 60,
+        o = 0.009;
+    for (var x = 1; x < l; x += 16) {
+        buffer[x+8] = buffer[x+4] = buffer[x] = Math.pow(Math.abs(Math.sin(p += o)), 128) * 255;
+    }
+
+    var p = t / 40,
+        o = 0.005;
+    for (var x = 2; x < l; x += 16) {
+        buffer[x+8] = buffer[x+4] = buffer[x] = Math.abs(Math.sin(p += o)) * 255;
+    }
+
+    ctx.putImageData(imageData, 0, 0);
+    requestAnimationFrame(updateAnimationFrame);
+});
+
+</script>
+    </body>
+</html>
