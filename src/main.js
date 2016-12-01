@@ -109,11 +109,11 @@ $(function() {
         var name = 'companies',
             $page = $pages.filter('#' + name);
 
-        updateCompaniesPage.companies[company.name] = company.arrived;
+        updateCompaniesPage.companies[company.name] = company.count;
         $page.data('count', Object.keys(updateCompaniesPage.companies).length * 6);
 
         if (window.companiesBubbles)
-            companiesBubbles.update(company.name, company.arrived);
+            companiesBubbles.update(company.name, company.count);
 
         subscription($page);
     }
@@ -156,7 +156,7 @@ $(function() {
 
     // Init companies toplist
     var initCompanies = $.get(config.companiesDataURL, function(companies) {
-        companies.forEach(updateCompaniesPage);
+        companies.data.forEach(updateCompaniesPage);
     });
 
     // Init ad slides

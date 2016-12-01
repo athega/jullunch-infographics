@@ -1,50 +1,52 @@
-[
+{
+    "data": [
     {
         "name": "Fisk & Asfalt",
-        "arrived": 2
+        "count": 2
     },
     {
         "name": "Expressen",
-        "arrived": 3
+        "count": 3
     },
     {
         "name": "TV 4",
-        "arrived": 4
+        "count": 4
     },
     {
         "name": "Omni",
-        "arrived": 5
+        "count": 5
     },
     {
         "name": "Bygg & Gräv",
-        "arrived": 6
+        "count": 6
     },
     {
         "name": "Natur och Kultur",
-        "arrived": 6
+        "count": 6
     },
     {
         "name": "UR",
-        "arrived": 7
+        "count": 7
     },
     {
         "name": "Ericsson",
-        "arrived": 8
+        "count": 8
     },
     {
         "name": "Aftonbladet",
-        "arrived": 9
+        "count": 9
     },
     {
         "name": "Atari Corporation",
-        "arrived": 10
+        "count": 10
     },
     {
         "name": "Athega",
-        "arrived": 11
+        "count": 11
     },
     {
         "name": "SEB",
-        "arrived": 12
+        "count": 12
     }
 ]
+}

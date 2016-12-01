@@ -24,7 +24,7 @@ $(function() {
            if (data.companies[name]) {
                data.companies[name].size = arrived;
            } else {
-               data.children.push(data.companies[name] = {name: name, size: Math.random() * 12 + 1}); // TODO: Change random size to: arrived
+               data.children.push(data.companies[name] = {name: name, size: arrived || 1});
            }
            return this;
         },

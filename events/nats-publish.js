@@ -5,7 +5,7 @@ var Nats = require('nats'),
        url: url,
        token: config.token
     }),
-    event = 'guest-arrival',
+    event = 'company-arrived',
     events = {
         'check-in': {
             rfid: "1234"
@@ -62,7 +62,7 @@ var Nats = require('nats'),
 
         'company-arrived': {
             name: "Athega",
-            arrived: 16,
+            count: 16,
         },
 
         'mulled_wine.total': {

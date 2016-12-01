@@ -8,7 +8,7 @@ $(function() {
             eventSourceURL: base + 'stream',
             stateDataURL: base + 'current_state',
             guestsDataURL: base + 'latest_check_ins',
-            companiesDataURL: 'data/companies.json', // TODO: Change to base + 'companies_toplist',
+            companiesDataURL: base + 'companies_toplist',
             adsURL: 'https://assets.athega.se/jullunch/ads.json',
             maxItems: 64,
             loopTime: 30 * 1000,
