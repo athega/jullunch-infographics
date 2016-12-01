@@ -1,7 +1,8 @@
 $(function() {
     'use strict';
 
-    const diameter = 640,
+    const $page = $('main > #companies'),
+        diameter = 640,
         initialTransitionDuration = 12000,
         initialTransitionDelay = 2000,
         updateTransitionDuration = 4000,
@@ -17,39 +18,40 @@ $(function() {
         data = {
             children: [],
             companies: {},
+        },
+        actions = {
+            update: function(event, name, count) {
+               if (data.companies[name]) {
+                   data.companies[name].size = count;
+               } else {
+                   data.children.push(data.companies[name] = {name: name, size: count || 1});
+               }
+               return this;
+            },
+            pause: function(event) {
+                clearInterval(updateRandomBubbles.interval);
+                updateRandomBubbles.interval = false;
+                resetBubbles();
+                updateBubbles.playing = false;
+                return this;
+            },
+            play: function(event) {
+                if (!updateRandomBubbles.interval) {
+                    updateRandomBubbles();
+                    updateRandomBubbles.interval = setInterval(updateRandomBubbles, randomBubblesInterval);
+                }
+
+                if (!updateBubbles.playing) {
+                    shuffle(data.children);
+                }
+
+                updateBubbles();
+                updateBubbles.playing = true;
+                return this;
+            },
         };
 
-    window.companiesBubbles = {
-        update: function(name, arrived) {
-           if (data.companies[name]) {
-               data.companies[name].size = arrived;
-           } else {
-               data.children.push(data.companies[name] = {name: name, size: arrived || 1});
-           }
-           return this;
-        },
-        pause: function() {
-            clearInterval(updateRandomBubbles.interval);
-            updateRandomBubbles.interval = false;
-            resetBubbles();
-            updateBubbles.playing = false;
-            return this;
-        },
-        play: function() {
-            if (!updateRandomBubbles.interval) {
-                companiesBubbles.update('random1', 0).update('random2', 0);
-                updateRandomBubbles.interval = setInterval(updateRandomBubbles, randomBubblesInterval);
-            }
-
-            if (!updateBubbles.playing) {
-                shuffle(data.children);
-            }
-
-            updateBubbles();
-            updateBubbles.playing = true;
-            return this;
-        },
-    };
+    $page.on(actions);
 
     function updateBubbles() {
         const root = d3.hierarchy(data).sum(d => d.size),
@@ -137,10 +139,11 @@ $(function() {
     }
 
     function updateRandomBubbles() {
-        companiesBubbles
-            .update('random1', Math.random() * 18 + 1)
-            .update('random2', Math.random() * 18 + 1)
-            .play();
+        actions.update(undefined, 'random1', Math.random() * 18 + 1)
+               .update(undefined, 'random2', Math.random() * 18 + 1);
+
+        if (updateRandomBubbles.interval)
+            actions.play();
     }
 
     function shuffle(a) {

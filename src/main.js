@@ -43,18 +43,14 @@ $(function() {
     function showPage($page) {
         history.replaceState({}, "", '#' + $page.attr('id'));
 
-        $pages.removeClass('active');
-        $page.addClass('active').triggerHandler('play');
+        var $currentPage = $pages.filter('.active');
+        $currentPage.removeClass('active');
+        $page.addClass('active');
+        if (!$currentPage.is($page)) $currentPage.triggerHandler('pause');
+        $page.triggerHandler('play');
 
         var $logoAnimation = $('body > h1');
         $logoAnimation.triggerHandler(!$page.is('.slide') ? 'play' : 'pause');
-
-        if (window.companiesBubbles) {
-            if ($page.is('#companies'))
-                companiesBubbles.play();
-            else
-                companiesBubbles.pause();
-        }
 
         setRandomPageTimeout($page);
     }
@@ -102,15 +98,12 @@ $(function() {
 
     updateCompaniesPage.companies = {};
     function updateCompaniesPage(company) {
-        var name = 'companies',
-            $page = $pages.filter('#' + name);
+        var $page = $pages.filter('#companies');
 
         updateCompaniesPage.companies[company.name] = company.count;
         $page.data('count', Object.keys(updateCompaniesPage.companies).length * 6);
 
-        if (window.companiesBubbles)
-            companiesBubbles.update(company.name, company.count);
-
+        $page.triggerHandler('update', [company.name, company.count]);
         subscription($page);
     }
 
