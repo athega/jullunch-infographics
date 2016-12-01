@@ -1,18 +1,7 @@
 $(function() {
     'use strict';
 
-    var eventSourceURL = 'https://jullunch-backend.athega.se/stream',
-        stateDataURL = 'https://jullunch-backend.athega.se/current_state',
-        guestsDataURL = 'https://jullunch-backend.athega.se/latest_check_ins',
-        companiesDataURL = 'data/companies.json', // TODO: Change to 'https://jullunch-backend.athega.se/companies_toplist',
-        adsURL = 'https://assets.athega.se/jullunch/ads.json',
-        eventSource = new EventSource(eventSourceURL),
-        maxItems = 64,
-        loopTime = 30000,
-        maxItemsLoopTime = 60000,
-        subscribedLoopTime = 60000,
-        slideLoopTime = 20000,
-        watchdogTime = 30 * 60 * 1000,
+    var config = infographics.config,
         $pages = $('main > div');
 
     function showPrevious() {
@@ -75,17 +64,17 @@ $(function() {
     }
 
     function setRandomPageTimeout($page) {
-        var time = loopTime,
+        var time = config.loopTime,
             count = $page.data('count');
 
         if ($page.is(subscription.$page)) {
-            time = subscribedLoopTime;
+            time = config.subscribedLoopTime;
         }
         else if ($page.is('.slide')) {
-            time = slideLoopTime;
+            time = config.slideLoopTime;
         }
         else if (count) {
-            time = loopTime + Math.min(maxItems, count) * (maxItemsLoopTime - loopTime) / maxItems;
+            time = config.loopTime + Math.min(config.maxItems, count) * (config.maxItemsLoopTime - config.loopTime) / config.maxItems;
         }
         clearTimeout(showRandomPage.timeoutId);
         showRandomPage.timeoutId = setTimeout(showRandomPage, time);
@@ -147,12 +136,12 @@ $(function() {
     }
 
     // Set watchdog timer to reload page.
-    if (watchdogTime) setTimeout(function() {
+    if (config.watchdogTime) setTimeout(function() {
         location.reload();
-    }, watchdogTime);
+    }, config.watchdogTime);
 
     // Init item data
-    var initState = $.get(stateDataURL, function(state) {
+    var initState = $.get(config.stateDataURL, function(state) {
         updateItemPage('mulled_wine', state.data.mulled_wine);
         updateItemPage('food', state.data.food);
         updateItemPage('drink', state.data.drink);
@@ -161,17 +150,17 @@ $(function() {
     });
 
     // Init latest guests
-    var initGuests = $.get(guestsDataURL, function(guests) {
+    var initGuests = $.get(config.guestsDataURL, function(guests) {
         guests.data.forEach(updateGuestsPage);
     });
 
     // Init companies toplist
-    var initCompanies = $.get(companiesDataURL, function(companies) {
+    var initCompanies = $.get(config.companiesDataURL, function(companies) {
         companies.forEach(updateCompaniesPage);
     });
 
     // Init ad slides
-    var initAds = $.get(adsURL, function(data) {
+    var initAds = $.get(config.adsURL, function(data) {
         var $template = $('template#slide'),
             $slide = $($template.html());
 
@@ -234,6 +223,8 @@ $(function() {
 
 
     // Event source events
+    var eventSource = new EventSource(infographics.config.eventSourceURL);
+
     eventSource.onerror = function(event) {
         notification('Event source failed!');
         setTimeout(function() { location.href = location.pathname; }, 12000);
