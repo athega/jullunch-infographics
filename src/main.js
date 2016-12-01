@@ -46,12 +46,8 @@ $(function() {
         $pages.removeClass('active');
         $page.addClass('active').triggerHandler('play');
 
-        if (window.logoAnimation) {
-            if (!$page.is('.slide'))
-                logoAnimation.play();
-            else
-                logoAnimation.pause();
-        }
+        var $logoAnimation = $('body > h1');
+        $logoAnimation.triggerHandler(!$page.is('.slide') ? 'play' : 'pause');
 
         if (window.companiesBubbles) {
             if ($page.is('#companies'))

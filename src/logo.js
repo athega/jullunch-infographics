@@ -21,7 +21,7 @@ $(function() {
         update.animationFrameRequested = requestAnimationFrame(update);
     }
 
-    window.logoAnimation = {
+    $h1.on({
         pause: function() {
             if (update.animationFrameRequested) {
                 cancelAnimationFrame(update.animationFrameRequested);
@@ -33,5 +33,5 @@ $(function() {
                 update.animationFrameRequested = requestAnimationFrame(update);
             }
         }
-    };
+    });
 });
