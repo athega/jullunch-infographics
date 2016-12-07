@@ -1,0 +1,13 @@
+{
+  "meta": {
+    "timestamp": "2016-12-07T11:17:01.213181494+01:00"
+  },
+  "data": {
+    "arrived": 6,
+    "coffee": 96,
+    "departed": 2,
+    "drink": 4,
+    "food": 2,
+    "mulled_wine": 21
+  }
+}

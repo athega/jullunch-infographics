@@ -1,5 +1,13 @@
 {
-    "data": [
+  "meta": {
+    "params": {
+      "arrived": true,
+      "departed": false,
+      "limit": 10
+    },
+    "timestamp": "2016-12-07T11:17:59.824351232+01:00"
+  },
+  "data": [
     {
         "name": "Fisk & Asfalt",
         "count": 2
@@ -48,5 +56,5 @@
         "name": "SEB",
         "count": 12
     }
-]
+  ]
 }

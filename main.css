@@ -438,10 +438,6 @@ ol {
     animation-name: guests-wave-x , guests-wave-y, none;
 }
 
-#guests ol.animation-reset > li {
-    display: none;
-}
-
 #guests ol > li > img {
     position: absolute;
     right: 100%;

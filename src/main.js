@@ -90,9 +90,11 @@ $(function() {
         subscription($page);
     }
 
-    function updateGuestsPage(guest) {
+    function updateGuestsPage() {
         var $page = $pages.filter('#guests');
-        $page.triggerHandler('update', [guest, subscription]);
+        return $page.triggerHandler('update').done(function() {
+            subscription($page);
+        });
     }
 
 
@@ -139,9 +141,7 @@ $(function() {
     });
 
     // Init latest guests
-    var initGuests = $.get(config.guestsDataURL, function(guests) {
-        guests.data.forEach(updateGuestsPage);
-    });
+    var initGuests = updateGuestsPage();
 
     // Init companies toplist
     var initCompanies = $.get(config.companiesDataURL, function(companies) {
@@ -226,7 +226,7 @@ $(function() {
     }
 
     listen("guest-arrival", function(guest) {
-        updateGuestsPage(guest);
+        updateGuestsPage();
         updateArrivalPage(guest);
     });
     listen("guest-departure", updateDeparturePage);
