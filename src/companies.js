@@ -1,7 +1,8 @@
 $(function() {
     'use strict';
 
-    const $page = $('main > #companies'),
+    const config = infographics.config,
+        $page = $('main > #companies'),
         diameter = 640,
         initialTransitionDuration = 12000,
         initialTransitionDelay = 2000,
@@ -20,22 +21,38 @@ $(function() {
             companies: {},
         },
         actions = {
+            reload: function(event) {
+                return $.get(config.companiesDataURL, function(companies) {
+                    data.children = [];
+                    data.companies = {};
+                    companies.data.forEach(function(company) {
+                        actions.update(undefined, company.name, company.count);
+                    });
+                });
+            },
             update: function(event, name, count) {
                if (data.companies[name]) {
                    data.companies[name].size = count;
                } else {
                    data.children.push(data.companies[name] = {name: name, size: count || 1});
                }
+               $page.data('count', data.children.length * 6);
                return this;
             },
             pause: function(event) {
                 clearInterval(updateRandomBubbles.interval);
                 updateRandomBubbles.interval = false;
                 resetBubbles();
+                updateBubbles.reload = true;
                 updateBubbles.playing = false;
                 return this;
             },
             play: function(event) {
+                if (updateBubbles.reload) {
+                    updateBubbles.reload = false;
+                    return actions.reload().done(actions.play);
+                }
+
                 if (!updateRandomBubbles.interval) {
                     updateRandomBubbles();
                     updateRandomBubbles.interval = setInterval(updateRandomBubbles, randomBubblesInterval);

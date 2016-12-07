@@ -120,13 +120,13 @@ $(function() {
     }
 
 
-    updateCompaniesPage.companies = {};
+    function initCompaniesPage() {
+        var $page = $pages.filter('#companies');
+        return $page.triggerHandler('reload');
+    }
+
     function updateCompaniesPage(company) {
         var $page = $pages.filter('#companies');
-
-        updateCompaniesPage.companies[company.name] = company.count;
-        $page.data('count', Object.keys(updateCompaniesPage.companies).length * 6);
-
         $page.triggerHandler('update', [company.name, company.count]);
         subscription($page);
     }
@@ -153,11 +153,6 @@ $(function() {
         location.reload();
     }, config.watchdogTime);
 
-    // Init companies toplist
-    var initCompanies = $.get(config.companiesDataURL, function(companies) {
-        companies.data.forEach(updateCompaniesPage);
-    });
-
     // Init ad slides
     var initAds = $.get(config.adsURL, function(data) {
         var $template = $('template#slide'),
@@ -173,7 +168,7 @@ $(function() {
     });
 
     // When all initial updates are done.
-    $.when(updateItemPages(), updateGuestsPage(), initCompanies, initAds).done(function() {
+    $.when(updateItemPages(), updateGuestsPage(), initCompaniesPage(), initAds).done(function() {
         // Restore subscription when all initial updates are done.
         subscription.$page = $pages.filter(localStorage.getItem('subscription-page'));
 
