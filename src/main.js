@@ -78,16 +78,38 @@ $(function() {
         showPage($page);
     }
 
-    function updateItemPage(name, count) {
-        var $page = $pages.filter('#' + name);
-        $page.triggerHandler('update', count);
-        subscription($page);
+    function updateItemPages() {
+        return $('main').triggerHandler('updateItemPages');
     }
 
-    function updateAttendancePage(update) {
-        var $page = $pages.filter('#attendance');
-        $page.triggerHandler('update', update);
-        subscription($page);
+    function updateMulledWinePage() {
+        updateItemPages().done(function() {
+            subscription($pages.filter('#mulled_wine'));
+        });
+    }
+
+    function updateDrinkPage() {
+        updateItemPages().done(function() {
+            subscription($pages.filter('#drink'));
+        });
+    }
+
+    function updateFoodPage() {
+        updateItemPages().done(function() {
+            subscription($pages.filter('#food'));
+        });
+    }
+
+    function updateCoffeePage() {
+        updateItemPages().done(function() {
+            subscription($pages.filter('#coffee'));
+        });
+    }
+
+    function updateAttendancePage() {
+        updateItemPages().done(function() {
+            subscription($pages.filter('#attendance'));
+        });
     }
 
     function updateGuestsPage() {
@@ -131,18 +153,6 @@ $(function() {
         location.reload();
     }, config.watchdogTime);
 
-    // Init item data
-    var initState = $.get(config.stateDataURL, function(state) {
-        updateItemPage('mulled_wine', state.data.mulled_wine);
-        updateItemPage('food', state.data.food);
-        updateItemPage('drink', state.data.drink);
-        updateItemPage('coffee', state.data.coffee);
-        updateAttendancePage({arrived: state.data.arrived, departed: state.data.departed});
-    });
-
-    // Init latest guests
-    var initGuests = updateGuestsPage();
-
     // Init companies toplist
     var initCompanies = $.get(config.companiesDataURL, function(companies) {
         companies.data.forEach(updateCompaniesPage);
@@ -163,7 +173,7 @@ $(function() {
     });
 
     // When all initial updates are done.
-    $.when(initState, initGuests, initCompanies, initAds).done(function() {
+    $.when(updateItemPages(), updateGuestsPage(), initCompanies, initAds).done(function() {
         // Restore subscription when all initial updates are done.
         subscription.$page = $pages.filter(localStorage.getItem('subscription-page'));
 
@@ -230,11 +240,11 @@ $(function() {
         updateArrivalPage(guest);
     });
     listen("guest-departure", updateDeparturePage);
-    listen("guests-arrived.total",  function(data) { updateAttendancePage({arrived: data.count}); });
-    listen("guests-departed.total", function(data) { updateAttendancePage({departed: data.count}); });
+    listen("guests-arrived.total", updateAttendancePage);
+    listen("guests-departed.total", updateAttendancePage);
     listen("company-arrived", updateCompaniesPage);
-    listen("mulled_wine.total", function(data) { updateItemPage("mulled_wine", data.count); });
-    listen("drink.total",       function(data) { updateItemPage("drink",       data.count); });
-    listen("food.total",        function(data) { updateItemPage("food",        data.count); });
-    listen("coffee.total",      function(data) { updateItemPage("coffee",      data.count); });
+    listen("mulled_wine.total", updateMulledWinePage);
+    listen("drink.total", updateDrinkPage);
+    listen("food.total", updateFoodPage);
+    listen("coffee.total", updateCoffeePage);
 });
