@@ -28,6 +28,7 @@ $(function() {
                     companies.data.forEach(function(company) {
                         actions.update(undefined, company.name, company.count);
                     });
+                    shuffle(data.children);
                 });
             },
             update: function(event, name, count) {
@@ -43,13 +44,12 @@ $(function() {
                 clearInterval(updateRandomBubbles.interval);
                 updateRandomBubbles.interval = false;
                 resetBubbles();
-                updateBubbles.reload = true;
                 updateBubbles.playing = false;
                 return this;
             },
             play: function(event) {
-                if (updateBubbles.reload) {
-                    updateBubbles.reload = false;
+                if (!updateBubbles.playing) {
+                    updateBubbles.playing = true;
                     return actions.reload().done(actions.play);
                 }
 
@@ -58,12 +58,7 @@ $(function() {
                     updateRandomBubbles.interval = setInterval(updateRandomBubbles, randomBubblesInterval);
                 }
 
-                if (!updateBubbles.playing) {
-                    shuffle(data.children);
-                }
-
                 updateBubbles();
-                updateBubbles.playing = true;
                 return this;
             },
         };

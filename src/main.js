@@ -105,18 +105,11 @@ $(function() {
         });
     }
 
-
-    function initCompaniesPage() {
-        var $page = $pages.filter('#companies');
-        return $page.triggerHandler('reload');
-    }
-
     function updateCompaniesPage(company) {
         var $page = $pages.filter('#companies');
         $page.triggerHandler('update', [company.name, company.count]);
         subscription($page);
     }
-
 
     function updateArrivalPage(guest) {
         var $page = $pages.filter('#arrival');
@@ -154,7 +147,7 @@ $(function() {
     });
 
     // When all initial updates are done.
-    $.when(initCompaniesPage(), initAds).done(function() {
+    $.when(initAds).done(function() {
         // Restore subscription when all initial updates are done.
         subscription.$page = $pages.filter(localStorage.getItem('subscription-page'));
 
