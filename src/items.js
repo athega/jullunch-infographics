@@ -6,39 +6,36 @@ $(function() {
         $itemPages = $main.children('#mulled_wine, #drink, #food, #coffee'),
         $attendancePage = $main.children('#attendance');
 
-    $main.on('updateItemPages', function(event) {
+    $itemPages.on('play', function(event) {
+        var $page = $(this),
+            $list = $page.find('ul');
+
         return $.get(config.stateDataURL, function(state) {
-            $itemPages.filter('#mulled_wine').triggerHandler('update', state.data.mulled_wine);
-            $itemPages.filter('#food').triggerHandler('update', state.data.food);
-            $itemPages.filter('#drink').triggerHandler('update', state.data.drink);
-            $itemPages.filter('#coffee').triggerHandler('update', state.data.coffee);
-            $attendancePage.triggerHandler('update', {arrived: state.data.arrived, departed: state.data.departed});
+            var count = state.data[$page.attr('id')];
+            $page.data('count', count);
+            $page.find('h3').text(count);
+            addItems($list, count);
         });
     });
 
-    $itemPages.on('update', function(event, count) {
-        var $page = $itemPages.filter(this),
+    $attendancePage.on('play', function(event) {
+        var $page = $(this),
             $list = $page.find('ul');
 
-        $page.data('count', count);
-        $page.find('h3').text(count);
-        addItems($list, count);
+        return $.get(config.stateDataURL, function(state) {
+            $page.data('count', state.data.arrived);
+            $page.find('.arrived > h3').text(state.data.arrived);
+            $page.find('.present > h3').text(state.data.arrived - state.data.departed);
+            $page.find('.departed > h3').text(state.data.departed);
+            addItems($list, state.data.arrived).eq(-state.data.departed).addClass('departed');
+        });
     });
 
-
-    $attendancePage.on('update', function(event, update) {
-        var $page = $attendancePage,
-            data = $page.data(),
-            $list = $page.find('ul');
-
-        $page.data(update);
-        $page.data('count', data.arrived);
-        $page.find('.arrived > h3').text(data.arrived);
-        $page.find('.present > h3').text(data.arrived - data.departed);
-        $page.find('.departed > h3').text(data.departed);
-        addItems($list, data.arrived).eq(-data.departed).addClass('departed');
+    $itemPages.add($attendancePage).on('pause', function(event) {
+        var $page = $(this);
+        $page.find('ul').empty();
+        $page.find('h3').empty();
     });
-
 
     function addItems($list, count) {
 

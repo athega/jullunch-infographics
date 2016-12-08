@@ -78,38 +78,24 @@ $(function() {
         showPage($page);
     }
 
-    function updateItemPages() {
-        return $('main').triggerHandler('updateItemPages');
-    }
-
     function updateMulledWinePage() {
-        updateItemPages().done(function() {
-            subscription($pages.filter('#mulled_wine'));
-        });
+        subscription($pages.filter('#mulled_wine'));
     }
 
     function updateDrinkPage() {
-        updateItemPages().done(function() {
-            subscription($pages.filter('#drink'));
-        });
+        subscription($pages.filter('#drink'));
     }
 
     function updateFoodPage() {
-        updateItemPages().done(function() {
-            subscription($pages.filter('#food'));
-        });
+        subscription($pages.filter('#food'));
     }
 
     function updateCoffeePage() {
-        updateItemPages().done(function() {
-            subscription($pages.filter('#coffee'));
-        });
+        subscription($pages.filter('#coffee'));
     }
 
     function updateAttendancePage() {
-        updateItemPages().done(function() {
-            subscription($pages.filter('#attendance'));
-        });
+        subscription($pages.filter('#attendance'));
     }
 
     function updateGuestsPage() {
@@ -168,7 +154,7 @@ $(function() {
     });
 
     // When all initial updates are done.
-    $.when(updateItemPages(), updateGuestsPage(), initCompaniesPage(), initAds).done(function() {
+    $.when(updateGuestsPage(), initCompaniesPage(), initAds).done(function() {
         // Restore subscription when all initial updates are done.
         subscription.$page = $pages.filter(localStorage.getItem('subscription-page'));
 
