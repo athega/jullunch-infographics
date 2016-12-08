@@ -468,11 +468,6 @@ ol {
     color: #ccc;
 }
 
-#guests ol > li > time::before {
-    content: "\023F1";
-    margin-right: 0.1em;
-}
-
 ul {
     position: absolute;
     top: 50%;

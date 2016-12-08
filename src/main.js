@@ -154,7 +154,7 @@ $(function() {
     });
 
     // When all initial updates are done.
-    $.when(updateGuestsPage(), initCompaniesPage(), initAds).done(function() {
+    $.when(initCompaniesPage(), initAds).done(function() {
         // Restore subscription when all initial updates are done.
         subscription.$page = $pages.filter(localStorage.getItem('subscription-page'));
 
