@@ -2,7 +2,8 @@ $(function() {
     'use strict';
 
     var config = infographics.config,
-        $pages = $('main > div');
+        $pages = $('main > div'),
+        $audio = $('audio#subscribed');
 
     function showPrevious() {
         var $currentPage = $pages.filter('.active'),
@@ -28,7 +29,7 @@ $(function() {
     function subscription($page) {
         if ($page.is(subscription.$page) || $page.is('.active')) {
             showPage($page);
-            $('audio#subscribed').get(0).play();
+            $audio.get(0).play();
         }
     }
 
@@ -159,6 +160,12 @@ $(function() {
             showPage($defaultPage);
         else
             showRandomPage();
+
+        // Enable audio on iOS.
+        $audio.find('+ button').toggle(!!navigator.userAgent.match(/iP(ad|od|hone)/)).on('click', function(event) {
+            $audio.get(0).play();
+            $(this).hide();
+        });
     });
 
     // Manual paging
