@@ -28,6 +28,7 @@ $(function() {
     function subscription($page) {
         if ($page.is(subscription.$page) || $page.is('.active')) {
             showPage($page);
+            $('audio#subscribed').get(0).play();
         }
     }
 
