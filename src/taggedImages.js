@@ -29,6 +29,8 @@ $(function() {
         return $.get(config.taggedImagesURL, function(images) {
             $list.empty();
 
+            shuffle(images);
+
             for (var i = 0; i < 8; i++) {
                 $list.append($('<li>', {'class': 'triangle'}).css('border-bottom-color', d3.schemeCategory10[Math.floor(Math.random()*d3.schemeCategory10.length)]));
             }
@@ -45,16 +47,19 @@ $(function() {
             var $faces = $list.children(),
                 i = 0;
 
+            // Triangles top layer
             $faces.eq(i++).css('transform', 'rotateY(45deg) translateZ('+ r +'vmin)  translateY('+ -size/2 +'vmin) rotateX('+ a +'rad) translateY('+ -size/2 +'vmin)');
             $faces.eq(i++).css('transform', 'rotateY(-45deg) translateZ('+ r +'vmin)  translateY('+ -size/2 +'vmin) rotateX('+ a +'rad) translateY('+ -size/2 +'vmin)');
             $faces.eq(i++).css('transform', 'rotateY(135deg) translateZ('+ r +'vmin)  translateY('+ -size/2 +'vmin) rotateX('+ a +'rad) translateY('+ -size/2 +'vmin)');
             $faces.eq(i++).css('transform', 'rotateY(-135deg) translateZ('+ r +'vmin)  translateY('+ -size/2 +'vmin) rotateX('+ a +'rad) translateY('+ -size/2 +'vmin)');
 
-            $faces.eq(i++).css('transform', 'rotateY(45deg) translateZ('+ -r +'vmin)  translateY('+ size/2 +'vmin) rotateX('+ a2 +'rad) translateY('+ -size/2 +'vmin)');
-            $faces.eq(i++).css('transform', 'rotateY(-45deg) translateZ('+ -r +'vmin)  translateY('+ size/2 +'vmin) rotateX('+ a2 +'rad) translateY('+ -size/2 +'vmin)');
-            $faces.eq(i++).css('transform', 'rotateY(135deg) translateZ('+ -r +'vmin)  translateY('+ size/2 +'vmin) rotateX('+ a2 +'rad) translateY('+ -size/2 +'vmin)');
-            $faces.eq(i++).css('transform', 'rotateY(-135deg) translateZ('+ -r +'vmin)  translateY('+ size/2 +'vmin) rotateX('+ a2 +'rad) translateY('+ -size/2 +'vmin)');
+            // Triangles bottom layer
+            $faces.eq(i++).css('transform', 'rotateY(45deg) rotateY(45deg) translateZ('+ -r +'vmin)  translateY('+ size/2 +'vmin) rotateX('+ a2 +'rad) translateY('+ -size/2 +'vmin)');
+            $faces.eq(i++).css('transform', 'rotateY(45deg) rotateY(-45deg) translateZ('+ -r +'vmin)  translateY('+ size/2 +'vmin) rotateX('+ a2 +'rad) translateY('+ -size/2 +'vmin)');
+            $faces.eq(i++).css('transform', 'rotateY(45deg) rotateY(135deg) translateZ('+ -r +'vmin)  translateY('+ size/2 +'vmin) rotateX('+ a2 +'rad) translateY('+ -size/2 +'vmin)');
+            $faces.eq(i++).css('transform', 'rotateY(45deg) rotateY(-135deg) translateZ('+ -r +'vmin)  translateY('+ size/2 +'vmin) rotateX('+ a2 +'rad) translateY('+ -size/2 +'vmin)');
 
+            // Middle layer
             $faces.eq(i++).css('transform', 'translateZ('+ r +'vmin)');
             $faces.eq(i++).css('transform', 'rotateY(-45deg) translateZ('+ r +'vmin)');
             $faces.eq(i++).css('transform', 'rotateY(-90deg) translateZ('+ r +'vmin)');
@@ -64,17 +69,22 @@ $(function() {
             $faces.eq(i++).css('transform', 'rotateY(90deg) translateZ('+ r +'vmin)');
             $faces.eq(i++).css('transform', 'rotateY(45deg) translateZ('+ r +'vmin)');
 
-            $faces.eq(i++).css('transform', 'rotateX(-45deg) translateZ('+ r +'vmin)');
-            $faces.eq(i++).css('transform', 'rotateX(-90deg) translateZ('+ r +'vmin)');
-            $faces.eq(i++).css('transform', 'rotateX(-45deg) rotateY(180deg) translateZ('+ r +'vmin)');
-            $faces.eq(i++).css('transform', 'rotateX(45deg) rotateY(180deg) translateZ('+ r +'vmin)');
-            $faces.eq(i++).css('transform', 'rotateX(90deg) translateZ('+ r +'vmin)');
+            // Top layer
             $faces.eq(i++).css('transform', 'rotateX(45deg) translateZ('+ r +'vmin)');
+            $faces.eq(i++).css('transform', 'rotateX(90deg) translateZ('+ r +'vmin)');
+            $faces.eq(i++).css('transform', 'rotateX(-45deg) rotateY(180deg) translateZ('+ r +'vmin)');
 
-            $faces.eq(i++).css('transform', 'rotateZ(-45deg) rotateY(-90deg) translateZ('+ r +'vmin)');
-            $faces.eq(i++).css('transform', 'rotateZ(45deg) rotateY(90deg) translateZ('+ r +'vmin)');
             $faces.eq(i++).css('transform', 'rotateZ(45deg) rotateY(-90deg) translateZ('+ r +'vmin)');
             $faces.eq(i++).css('transform', 'rotateZ(-45deg) rotateY(90deg) translateZ('+ r +'vmin)');
+
+            // Bottom layer
+            $faces.eq(i++).css('transform', 'rotateY(45deg) rotateX(-45deg) translateZ('+ r +'vmin)');
+            $faces.eq(i++).css('transform', 'rotateY(45deg) rotateX(-90deg) translateZ('+ r +'vmin)');
+            $faces.eq(i++).css('transform', 'rotateY(45deg) rotateX(45deg) rotateY(180deg) translateZ('+ r +'vmin)');
+
+            $faces.eq(i++).css('transform', 'rotateY(45deg) rotateZ(-45deg) rotateY(-90deg) translateZ('+ r +'vmin)');
+            $faces.eq(i++).css('transform', 'rotateY(45deg) rotateZ(45deg) rotateY(90deg) translateZ('+ r +'vmin)');
+
 
             if (!update.animationFrameRequested) {
                 update.animationFrameRequested = requestAnimationFrame(update);
@@ -90,5 +100,12 @@ $(function() {
             update.animationFrameRequested = false;
         }
     });
+
+    function shuffle(a) {
+        for (let i = a.length; i; i--) {
+            let j = Math.floor(Math.random() * i);
+            [a[i - 1], a[j]] = [a[j], a[i - 1]];
+        }
+    }
 
 });
