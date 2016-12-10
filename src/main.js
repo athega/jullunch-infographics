@@ -109,7 +109,7 @@ $(function() {
 
     function updateCompaniesPage(company) {
         var $page = $pages.filter('#companies');
-        $page.triggerHandler('update', [company.name, company.count]);
+        $page.triggerHandler('update', [company.name, company.arrived - company.departed]);
         subscription($page);
     }
 
@@ -220,7 +220,8 @@ $(function() {
     listen("guest-departure", updateDeparturePage);
     listen("guests-arrived.total", updateAttendancePage);
     listen("guests-departed.total", updateAttendancePage);
-    listen("company-arrived", updateCompaniesPage);
+    listen("company-arrival", updateCompaniesPage);
+    listen("company-departure", updateCompaniesPage);
     listen("mulled_wine.total", updateMulledWinePage);
     listen("drink.total", updateDrinkPage);
     listen("food.total", updateFoodPage);
