@@ -119,13 +119,9 @@ $(function() {
         subscription($page);
     }
 
-
     function updateDeparturePage(guest) {
-        var name = 'departure',
-            $page = $pages.filter('#' + name);
-
+        var $page = $pages.filter('#departure');
         $page.find('span.name').text(guest.name);
-
         subscription($page);
     }
 

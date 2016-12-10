@@ -4,4 +4,5 @@ includeScript("arrival.js");
 includeScript("guests.js");
 includeScript("items.js");
 includeScript("companies.js");
+includeScript("taggedImages.js");
 includeScript("main.js");
