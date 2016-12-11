@@ -5,7 +5,7 @@ var Nats = require('nats'),
        url: url,
        token: config.token
     }),
-    event = 'company-arrival',
+    event = 'guest-arrival',
     events = {
         'check-in': {
             rfid: "1234"
@@ -44,7 +44,7 @@ var Nats = require('nats'),
             ]),
             arrived_at: new Date(Date.now() + Math.random() * 86400000).toISOString(),
             arrived: Math.floor(Math.random() * 96 + 2),
-            'arrived-company': Math.floor(Math.random() * 28 + 1),
+            arrived_company: Math.floor(Math.random() * 28 + 1),
         },
 
         'guest-departure': {

@@ -36,6 +36,11 @@ $(function() {
         }
     });
 
+    $page.on('pause', function(event) {
+        clearInterval(arrivedInterval);
+        clearInterval(arrivedCompanyInterval);
+    });
+
     $page.on('update', function(event, guest) {
         $name.empty();
         for (var i in guest.name) {
@@ -43,7 +48,7 @@ $(function() {
         }
 
         $page.find('span.arrived').data('count', guest.arrived).text('…');
-        $page.find('span.arrived-company').data('count', guest['arrived-company']).text('…');
+        $page.find('span.arrived-company').data('count', guest.arrived_company).text('…');
         $page.find('span.company').text(guest.company);
 
         if (guest.arrived_at) {
