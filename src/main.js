@@ -23,11 +23,11 @@ $(function() {
         if ($page.hasClass('slide')) return;
         subscription.$page = $page;
         localStorage.setItem('subscription-page', '#' + $page.attr('id'));
-        notification('Prenumererar på händelser för #' + $page.attr('id'));
+        notification('Prenumererar på händelser för ' + (subscription.$page.data('subscription') || ('#' + $page.attr('id'))));
     }
 
     function subscription($page) {
-        if ($page.is(subscription.$page) || $page.is('.active')) {
+        if ($page.is(subscription.$page) || $page.is(subscription.$page.data('subscription')) || $page.is('.active')) {
             showPage($page);
             $audio.get(0).play();
         }
