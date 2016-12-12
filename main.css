@@ -520,6 +520,10 @@ ul   > li {
 }
 
 
+#tagged_images > h2 {
+    margin-bottom: 0;
+}
+
 #tagged_images > h2 > i {
     color: #2d88a6;
 }
