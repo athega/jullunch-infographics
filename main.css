@@ -357,13 +357,6 @@ main > .slide > img {
 }
 
 
-ol {
-    text-align: left;
-    display: inline-block;
-    margin: 0;
-    padding: 0;
-}
-
 #guests > h2 {
     margin-bottom: 0;
 }
@@ -397,7 +390,9 @@ ol {
 #guests > span > ol {
     height: 60vh;
     overflow: hidden;
+    margin: 0;
     padding: 1em 5em;
+    text-align: left;
     line-height: normal;
 }
 
@@ -559,9 +554,11 @@ main > .items > ul > li {
 }
 
 #tagged_images > ol {
+    display: inline-block;
     width: 40vmin;
     height: 40vmin;
-    margin: 10vmin 20vmin;
+    margin: 10vmin 0;
+    padding: 0;
     transform-style: preserve-3d;
 }
 
@@ -607,6 +604,29 @@ main > .items > ul > li {
     font-size: 0.8em;
 }
 
+
+#buzzwords > ul {
+    display: inline-block;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    transform: perspective(520vmax);
+    transform-style: preserve-3d;
+}
+
+#buzzwords > ul > li {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    list-style: none;
+    font-size: 1.6em;
+    font-weight: bold;
+    color: #2d88a6;
+    text-shadow: 0 0 8px white, 2px 2px 2px black, -1px -1px 1px black, 1px -1px 1px black, -1px 1px 1px black;
+}
 
 #notification {
     position: absolute;

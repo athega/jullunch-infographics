@@ -14,11 +14,6 @@
         </h1>
 
         <main>
-            <div id="guests" data-loop data-subscription="#guests">
-                <h2>Senaste gäster</h2>
-                <span><ol></ol></span>
-            </div>
-
             <div id="arrival" data-subscription="#arrival, #departure">
                 <h2>Välkommen till Athegas årliga jullunch</h2>
                 <img>
@@ -44,6 +39,11 @@
                     <img src="images/polstjarnalogga.png" alt="Polstjärna">
                     i ditt namn.
                 </p>
+            </div>
+
+            <div id="guests" data-loop data-subscription="#guests">
+                <h2>Senaste gäster</h2>
+                <span><ol></ol></span>
             </div>
 
             <div id="companies" data-loop data-subscription="#companies">
@@ -101,6 +101,10 @@
             <div id="tagged_images" data-loop>
                 <h2>Senaste bilder taggade <i>#athegajul</i></h2>
                 <ol></ol>
+            </div>
+
+            <div id="buzzwords" data-loop>
+                <ul></ul>
             </div>
 
             <template id="slide">
