@@ -56,14 +56,6 @@ var Nats = require('nats'),
             company: "Foo AB"
         },
 
-        'guests-arrived.total': {
-            count: 8,
-        },
-
-        'guests-departed.total': {
-            count: 3,
-        },
-
         'company-arrival': {
             name: "Athega",
             arrived: 16,

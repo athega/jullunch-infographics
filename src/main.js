@@ -217,10 +217,12 @@ $(function() {
     listen("guest-arrival", function(guest) {
         updateGuestsPage();
         updateArrivalPage(guest);
+        updateAttendancePage()
     });
-    listen("guest-departure", updateDeparturePage);
-    listen("guests-arrived.total", updateAttendancePage);
-    listen("guests-departed.total", updateAttendancePage);
+    listen("guest-departure", function(guest) {
+        updateDeparturePage(guest);
+        updateAttendancePage()
+    });
     listen("company-arrival", updateCompaniesPage);
     listen("company-departure", updateCompaniesPage);
     listen("mulled_wine.total", updateMulledWinePage);
