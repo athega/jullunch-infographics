@@ -51,7 +51,7 @@ $(function() {
             ];
 
         for (var i = 0; i < rules.length; i++) {
-            if (rules[i].selectorText == 'ul > li') {
+            if (rules[i].selectorText == 'main > .items > ul > li') {
                 rules[i].style['animation-duration'] =
                     durations[0] + 's, ' + // wave-scale
                     durations[1] + 's, ' + // pop-in

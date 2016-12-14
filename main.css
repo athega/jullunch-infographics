@@ -468,19 +468,19 @@ ol {
     color: #ccc;
 }
 
-ul {
+main > .items > ul {
     position: absolute;
     top: 50%;
     left: 50%;
-    list-style: none;
     margin: 0;
     padding: 0;
 }
 
-ul   > li {
+main > .items > ul > li {
     position: absolute;
     width: 32px;
     height: 32px;
+    list-style: none;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
