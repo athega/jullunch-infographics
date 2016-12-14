@@ -5,10 +5,14 @@ var Nats = require('nats'),
        url: url,
        token: config.token
     }),
-    event = 'guest-arrival',
+    event = 'check-out',
     events = {
         'check-in': {
-            rfid: "1234"
+            rfid: "a3d30430"
+        },
+
+        'check-out': {
+            rfid: "a3d30430"
         },
 
         'guest-arrival': {
