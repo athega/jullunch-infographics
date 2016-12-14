@@ -553,8 +553,12 @@ main > .items > ul > li {
     }
 }
 
-#tagged_images > ol {
+#tagged_images > span {
     display: inline-block;
+    animation: pop-in 4s cubic-bezier(0.4, 1, 0.8, 1) backwards;
+}
+
+#tagged_images > span > ol {
     width: 40vmin;
     height: 40vmin;
     margin: 10vmin 0;
@@ -562,13 +566,13 @@ main > .items > ul > li {
     transform-style: preserve-3d;
 }
 
-#tagged_images > ol > li {
+#tagged_images > span > ol > li {
     list-style: none;
     position: absolute;
     backface-visibility: hidden;
 }
 
-#tagged_images > ol > li.triangle {
+#tagged_images > span > ol > li.triangle {
     display: block;
     width: 0;
     height: 0;
@@ -577,12 +581,12 @@ main > .items > ul > li {
     border-bottom-color: #f60;
 }
 
-#tagged_images > ol > li > figure {
+#tagged_images > span > ol > li > figure {
     position: relative;
     margin: 0;
 }
 
-#tagged_images > ol > li > figure > img {
+#tagged_images > span > ol > li > figure > img {
     display: block;
     width: 40vmin;
     height: 40vmin;
@@ -593,7 +597,7 @@ main > .items > ul > li {
     background-color: gray;
 }
 
-#tagged_images > ol > li > figure > figcaption {
+#tagged_images > span > ol > li > figure > figcaption {
     position: absolute;
     bottom: 0.5em;
     right: 0.5em;

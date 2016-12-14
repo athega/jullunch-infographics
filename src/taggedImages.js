@@ -27,7 +27,7 @@ $(function() {
 
     $page.on('play', function(event) {
         return $.get(config.taggedImagesURL, function(images) {
-            $list.empty();
+            $list.empty().parent('span').css('animation', '');
 
             shuffle(images);
 
@@ -93,7 +93,7 @@ $(function() {
     });
 
     $page.on('pause', function(event) {
-        $list.empty().css('transform', '');
+        $list.empty().css('transform', '').parent('span').css('animation', 'none');
 
         if (update.animationFrameRequested) {
             cancelAnimationFrame(update.animationFrameRequested);
