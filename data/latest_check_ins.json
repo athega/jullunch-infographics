@@ -9,7 +9,7 @@
       "image_url": "https://pbs.twimg.com/profile_images/771101587284590597/swYYjfSk_400x400.jpg",
       "arrived_at": "2016-12-07T18:19:53.658Z",
       "arrived": 48,
-      "arrived-company": 6
+      "arrived_company": 6
     },
     {
       "name": "Dan Wester",
@@ -17,7 +17,7 @@
       "image_url": "https://pbs.twimg.com/profile_images/728347462134579202/iG5FFFVb_400x400.jpg",
       "arrived_at": "2016-12-07T10:37:38.842Z",
       "arrived": 95,
-      "arrived-company": 17
+      "arrived_company": 17
     },
     {
       "name": "Spöket Laban",
@@ -25,7 +25,7 @@
       "image_url": "https://pbs.twimg.com/profile_images/707537655190462466/OSomk7wD_400x400.jpg",
       "arrived_at": "2016-12-07T15:05:51.767Z",
       "arrived": 97,
-      "arrived-company": 11
+      "arrived_company": 11
     },
     {
       "name": "Hans-Göran Persson",
@@ -33,7 +33,7 @@
       "image_url": "https://pbs.twimg.com/profile_images/3188722524/5790e7b88809e42d6e02e2120189aaf2_400x400.jpeg",
       "arrived_at": "2016-12-08T05:22:27.747Z",
       "arrived": 82,
-      "arrived-company": 5
+      "arrived_company": 5
     },
     {
       "name": "Hans-Göran Persson",
@@ -41,7 +41,7 @@
       "image_url": "https://pbs.twimg.com/profile_images/715186952962711552/w-6CMsDF_400x400.jpg",
       "arrived_at": "2016-12-07T21:42:26.402Z",
       "arrived": 52,
-      "arrived-company": 21
+      "arrived_company": 21
     },
     {
       "name": "Tommy Svensson",
@@ -49,7 +49,7 @@
       "image_url": "https://pbs.twimg.com/profile_images/1671394528/johan_400x400.jpg",
       "arrived_at": "2016-12-07T19:02:56.101Z",
       "arrived": 22,
-      "arrived-company": 5
+      "arrived_company": 5
     },
     {
       "name": "Hans-Göran Persson",
@@ -57,7 +57,7 @@
       "image_url": "https://pbs.twimg.com/profile_images/786665630544134146/R79FgreO_400x400.jpg",
       "arrived_at": "2016-12-07T15:56:19.888Z",
       "arrived": 12,
-      "arrived-company": 3
+      "arrived_company": 3
     },
     {
       "name": "Grodan Boll",
@@ -65,7 +65,7 @@
       "image_url": "https://pbs.twimg.com/profile_images/699537749213368320/GJm0fl36_400x400.png",
       "arrived_at": "2016-12-07T20:08:38.570Z",
       "arrived": 5,
-      "arrived-company": 19
+      "arrived_company": 19
     },
     {
       "name": "Mika Timonen",
@@ -73,7 +73,7 @@
       "image_url": "https://pbs.twimg.com/profile_images/786665630544134146/R79FgreO_400x400.jpg",
       "arrived_at": "2016-12-07T18:26:20.697Z",
       "arrived": 31,
-      "arrived-company": 12
+      "arrived_company": 12
     },
     {
       "name": "Plåt Nicklas",
@@ -81,7 +81,7 @@
       "image_url": "https://pbs.twimg.com/profile_images/786665630544134146/R79FgreO_400x400.jpg",
       "arrived_at": "2016-12-08T04:23:26.231Z",
       "arrived": 52,
-      "arrived-company": 19
+      "arrived_company": 19
     },
     {
       "name": "Magnus Olsson",
@@ -89,7 +89,7 @@
       "image_url": "https://pbs.twimg.com/profile_images/778530997826641921/4zJqh-0N_400x400.jpg",
       "arrived_at": "2016-12-07T23:20:37.320Z",
       "arrived": 67,
-      "arrived-company": 24
+      "arrived_company": 24
     },
     {
       "name": "Ville Puhakainen",
@@ -97,7 +97,7 @@
       "image_url": "https://pbs.twimg.com/profile_images/792509338439020544/07Csxxxx_400x400.jpg",
       "arrived_at": "2016-12-08T00:59:49.453Z",
       "arrived": 11,
-      "arrived-company": 27
+      "arrived_company": 27
     },
     {
       "name": "Hans-Göran Persson",
@@ -105,7 +105,7 @@
       "image_url": "https://pbs.twimg.com/profile_images/662214280368951296/gq5ztnJ5_400x400.png",
       "arrived_at": "2016-12-07T20:12:34.161Z",
       "arrived": 55,
-      "arrived-company": 22
+      "arrived_company": 22
     },
     {
       "name": "Kalle Stropp",
@@ -113,7 +113,7 @@
       "image_url": "https://pbs.twimg.com/profile_images/797243647628431360/4626QLMk_400x400.jpg",
       "arrived_at": "2016-12-07T10:40:05.339Z",
       "arrived": 38,
-      "arrived-company": 16
+      "arrived_company": 16
     },
     {
       "name": "Ville Puhakainen",
@@ -121,7 +121,7 @@
       "image_url": "https://pbs.twimg.com/profile_images/707537655190462466/OSomk7wD_400x400.jpg",
       "arrived_at": "2016-12-07T22:14:13.127Z",
       "arrived": 28,
-      "arrived-company": 22
+      "arrived_company": 22
     },
     {
       "name": "Ville Puhakainen",
@@ -129,7 +129,7 @@
       "image_url": "https://pbs.twimg.com/profile_images/771101587284590597/swYYjfSk_400x400.jpg",
       "arrived_at": "2016-12-07T11:56:06.576Z",
       "arrived": 20,
-      "arrived-company": 3
+      "arrived_company": 3
     }
   ]
 }
