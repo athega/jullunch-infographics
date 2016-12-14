@@ -20,10 +20,11 @@ $(function() {
     }
 
     function subscribe($page) {
-        if ($page.hasClass('slide')) return;
-        subscription.$page = $page;
-        localStorage.setItem('subscription-page', '#' + $page.attr('id'));
-        notification('Prenumererar på händelser för ' + (subscription.$page.data('subscription') || ('#' + $page.attr('id'))));
+        if ($page.data('subscription')) {
+            subscription.$page = $page;
+            localStorage.setItem('subscription-page', '#' + $page.attr('id'));
+            notification('Prenumererar på händelser för ' + $page.data('subscription'));
+        }
     }
 
     function subscription($page) {
