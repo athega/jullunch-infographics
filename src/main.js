@@ -76,7 +76,7 @@ $(function() {
     }
 
     function showRandomPage() {
-        var $loopPages = $pages.filter('.loop'),
+        var $loopPages = $pages.filter('[data-loop]'),
             $page = $loopPages.eq(Math.floor(Math.random() * $loopPages.length));
         showPage($page);
     }
