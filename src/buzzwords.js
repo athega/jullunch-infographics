@@ -52,6 +52,9 @@ $(function() {
     }
 
     $page.on('play', function(event) {
+
+        $page.data('count', config.maxItems);
+
         $list.empty();
 
         shuffle(words);
