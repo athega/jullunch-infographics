@@ -53,7 +53,7 @@ $(function() {
             for (var i = 0; i < count; i++) {
                 var tweet = tweets[i % tweets.length];
                 $list.append($('<li>')
-                         .append($('<blockquote>').text(tweet.text))
+                         .append($('<blockquote>').text(tweet.text.replace(/https?:\/\/\S+/, '')))
                          .append($('<div>').text('– ' + tweet.user.name))
                  );
             }

@@ -656,7 +656,7 @@ main > .items > ul > li {
 }
 
 #tweets > ul > li > blockquote {
-    width: 24em;
+    max-width: 24em;
     margin: 0;
     font-size: 1.4rem;
     text-align: left;
