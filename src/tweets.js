@@ -33,7 +33,7 @@ $(function() {
             p.x = Math.sin(t + p.a) * p.r;
             p.y = Math.cos(t + p.a) * p.r;
 
-            return 'translate3D('+ p.x +'vw,'+ p.y +'vh,'+ p.z +'vmax) translate(-50%, -50%)';
+            return 'translate3D('+ p.x +'vmax,'+ p.y +'vmax,'+ p.z +'vmax) translate(-50%, -50%)';
         }).css('opacity', function(i) {
             var p = $(this).data();
             return p.z < zmin ? 0 :

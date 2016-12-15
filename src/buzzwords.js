@@ -40,7 +40,7 @@ $(function() {
             p.y = Math.cos(t + p.a) * p.r;
 
             var rotateZ = i < words.length ? '' : 'rotateZ('+ (p.a - t) +'rad) ';
-            return 'translate3D('+ p.x +'vw,'+ p.y +'vh,'+ p.z +'vmax) '+ rotateZ +'translate(-50%, -50%)';
+            return 'translate3D('+ p.x +'vmax,'+ p.y +'vmax,'+ p.z +'vmax) '+ rotateZ +'translate(-50%, -50%)';
         }).css('opacity', function(i) {
             var p = $(this).data();
             return p.z < zmin ? 0 :
