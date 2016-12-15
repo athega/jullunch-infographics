@@ -14,6 +14,7 @@ $(function() {
             companiesDataURL: data + 'companies_toplist' + ext,
             adsURL: assets + '/ads.json',
             taggedImagesURL: assets + '/2016/athegajul_hashtag_images.json',
+            tweetsURL: assets + '/2016/recent_tweets.json',
             maxItems: 64,
             loopTime: 30 * 1000,
             maxItemsLoopTime: 60 * 1000,

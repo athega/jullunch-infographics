@@ -6,4 +6,5 @@ includeScript("items.js");
 includeScript("companies.js");
 includeScript("taggedImages.js");
 includeScript("buzzwords.js");
+includeScript("tweets.js");
 includeScript("main.js");

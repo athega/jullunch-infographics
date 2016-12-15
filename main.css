@@ -609,7 +609,8 @@ main > .items > ul > li {
 }
 
 
-#buzzwords > ul {
+#buzzwords > ul,
+#tweets > ul {
     display: inline-block;
     width: 100vw;
     height: 100vh;
@@ -619,7 +620,8 @@ main > .items > ul > li {
     transform-style: preserve-3d;
 }
 
-#buzzwords > ul > li {
+#buzzwords > ul > li,
+#tweets > ul > li {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -628,8 +630,38 @@ main > .items > ul > li {
     list-style: none;
     font-size: 1.6em;
     font-weight: bold;
+    letter-spacing: 0.1rem;
     color: #2d88a6;
     text-shadow: 0 0 8px white, 2px 2px 2px black, -1px -1px 1px black, 1px -1px 1px black, -1px 1px 1px black;
+}
+
+#tweets > ul > li > img {
+    display: inline-block;
+    opacity: 0.6;
+    border-radius: 50%;
+    background-size: cover, 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-blend-mode: hard-light;
+    background-image: url("images/bubble-background.png"), url("images/twitter.svg");
+    background-color: red;
+}
+
+#tweets > ul > li > blockquote {
+    width: 24em;
+    margin: 0;
+    font-size: 1.4rem;
+    text-align: left;
+    color: #333;
+    text-shadow: 0 0 8px white;
+    background-color: rgba(255,255,255,0.8);
+    box-shadow: 0 0 4px 0 rgba(255,255,255,0.8);
+    border-radius: 6px;
+}
+
+#tweets > ul > li > div {
+    text-align: right;
+    font-size: 2rem;
 }
 
 #notification {
