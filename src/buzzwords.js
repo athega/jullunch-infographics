@@ -7,9 +7,9 @@ $(function() {
         words = [
              'Server-Sent Events', 'Sax', 'Lamineringsmaskin', 'SVG',
              'Babel', 'D3.js', 'EventSource', 'Node.js', 'Buntband',
-             'HTML', 'CSS 3D', 'JavaScript', 'jQuery', 'Eltejp',
-             'Tessel', 'Neopixel', 'Lödkolv', 'Krympslang',
-             'Canvas', 'Go', 'NATS Streaming', 'MongoDB',
+             'HTML', 'CSS 3D', 'JavaScript', 'jQuery', 'Eltejp', 'Dlib', 'libcurl',
+             'Tessel', 'Neopixel', 'Lödkolv', 'Krympslang', 'Blender',
+             'Canvas', 'Go', 'NATS Streaming', 'MongoDB', 'RFID', 'OpenCV',
         ],
         t = 0,
         zi_word = 4,

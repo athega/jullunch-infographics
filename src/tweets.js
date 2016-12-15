@@ -45,9 +45,9 @@ $(function() {
     }
 
     $page.on('play', function(event) {
-        return $.get(config.tweetsURL, function(tweets) {
-            $page.data('count', config.maxItems);
+        $page.data('count', config.maxItems);
 
+        return $.get(config.tweetsURL, function(tweets) {
             $list.empty();
 
             for (var i = 0; i < count; i++) {
