@@ -26,7 +26,7 @@ $(function() {
                     data.children = [];
                     data.companies = {};
                     companies.data.forEach(function(company) {
-                        actions.update(undefined, company.name, company.arrived - company.departed);
+                        actions.update(undefined, company.name, company.count);
                     });
                     shuffle(data.children);
                 });
