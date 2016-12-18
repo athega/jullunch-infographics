@@ -27,7 +27,7 @@ $(function() {
         var $page = $(this),
             $list = $page.find('ol');
 
-        return $.get($page.is('#tagged_images') ? config.taggedImagesURL : config.guestsDataURL, function(images) {
+        return $.get($page.is('#tagged_images') ? config.taggedImagesURL : config.guestsDataURL + '?limit=18', function(images) {
             $list.empty().parent('span').css('animation', '');
 
             if (images.data) images = images.data;
