@@ -523,7 +523,7 @@ main > .items > ul > li {
 }
 
 
-#tagged_images > h2 {
+.image_cube > h2 {
     margin-bottom: 0;
 }
 
@@ -561,12 +561,12 @@ main > .items > ul > li {
     }
 }
 
-#tagged_images > span {
+.image_cube > span {
     display: inline-block;
     animation: pop-in 4s cubic-bezier(0.4, 1, 0.8, 1) backwards;
 }
 
-#tagged_images > span > ol {
+.image_cube > span > ol {
     width: 40vmin;
     height: 40vmin;
     margin: 10vmin 0;
@@ -574,13 +574,13 @@ main > .items > ul > li {
     transform-style: preserve-3d;
 }
 
-#tagged_images > span > ol > li {
+.image_cube > span > ol > li {
     list-style: none;
     position: absolute;
     backface-visibility: hidden;
 }
 
-#tagged_images > span > ol > li.triangle {
+.image_cube > span > ol > li.triangle {
     display: block;
     width: 0;
     height: 0;
@@ -589,12 +589,12 @@ main > .items > ul > li {
     border-bottom-color: #f60;
 }
 
-#tagged_images > span > ol > li > figure {
+.image_cube > span > ol > li > figure {
     position: relative;
     margin: 0;
 }
 
-#tagged_images > span > ol > li > figure > img {
+.image_cube > span > ol > li > figure > img {
     display: block;
     width: 40vmin;
     height: 40vmin;
@@ -605,7 +605,7 @@ main > .items > ul > li {
     background-color: gray;
 }
 
-#tagged_images > span > ol > li > figure > figcaption {
+.image_cube > span > ol > li > figure > figcaption {
     position: absolute;
     bottom: 0.5em;
     right: 0.5em;

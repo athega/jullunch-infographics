@@ -2,8 +2,7 @@ $(function() {
     'use strict';
 
     var config = infographics.config,
-        $page = $('main > #tagged_images'),
-        $list = $page.find('ol'),
+        $pages = $('main').children('#tagged_images, #guest_images'),
         size = 40,
         r = size / 2 + Math.sqrt(size * size / 2),
         h = Math.sqrt(size * size - (size/2 * size/2)),
@@ -14,20 +13,24 @@ $(function() {
         yt = 0;
 
     function update() {
-
         var sz = Math.sin(zt += 0.0087),
             z = sz * 300 - 200,
             y = (yt += 1.2 - sz) % 360,
             x = Math.sin(xt += 0.0056 * (1 - sz) ) * 45;
 
-        $list.css('transform', 'perspective(260vmin) translateZ('+ z +'vmin) rotateX('+ x +'deg) rotateY('+ y +'deg)');
+        update.$list.css('transform', 'perspective(260vmin) translateZ('+ z +'vmin) rotateX('+ x +'deg) rotateY('+ y +'deg)');
 
         update.animationFrameRequested = requestAnimationFrame(update);
     }
 
-    $page.on('play', function(event) {
-        return $.get(config.taggedImagesURL, function(images) {
+    $pages.on('play', function(event) {
+        var $page = $(this),
+            $list = $page.find('ol');
+
+        return $.get($page.is('#tagged_images') ? config.taggedImagesURL : config.guestsDataURL, function(images) {
             $list.empty().parent('span').css('animation', '');
+
+            if (images.data) images = images.data;
 
             shuffle(images);
 
@@ -39,7 +42,7 @@ $(function() {
                 var image = images[i % images.length];
                 $list.append($('<li>')
                     .append($('<figure>')
-                        .append($('<img>', {src: image.url}))
+                        .append($('<img>', {src: image.url || image.image_url}))
                         .append($('<figcaption>').text(image.name))
                 ))
             }
@@ -87,12 +90,16 @@ $(function() {
 
 
             if (!update.animationFrameRequested) {
+                update.$list = $list;
                 update.animationFrameRequested = requestAnimationFrame(update);
             }
         });
     });
 
-    $page.on('pause', function(event) {
+    $pages.on('pause', function(event) {
+        var $page = $(this),
+            $list = $page.find('ol');
+
         $list.empty().css('transform', '').parent('span').css('animation', 'none');
 
         if (update.animationFrameRequested) {
