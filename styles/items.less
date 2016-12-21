@@ -64,85 +64,87 @@
     }
 }
 
-.number {
-    font-family: Oswald, sans-serif;
-    display: inline-block;
-    color: #348FAD;
-}
+main > .items {
+    > .number {
+        font-family: Oswald, sans-serif;
+        display: inline-block;
+        color: #348FAD;
 
-.number + .number {
-    margin-left: 10%;
-}
+        + .number {
+            margin-left: 10%;
+        }
 
-.number > h3 {
-    font-size: 6.5rem;
-    font-weight: 700;
-    margin: 0;
-    line-height: 1;
-    animation: wave-number 4s ease-out infinite alternate;
-}
+        > h3 {
+            font-size: 6.5rem;
+            font-weight: 700;
+            margin: 0;
+            line-height: 1;
+            animation: wave-number 4s ease-out infinite alternate;
+        }
 
-.number:nth-of-type(2) > h3 {
-    animation-delay: -7s;
-}
+        &:nth-of-type(2) > h3 {
+            animation-delay: -7s;
+        }
 
-.number:nth-of-type(3) > h3 {
-    animation-delay: -6s;
-}
+        &:nth-of-type(3) > h3 {
+            animation-delay: -6s;
+        }
 
-.number > span {
-    color: #595959;
-    font-weight: 100;
-    font-size: 60%;
-}
+        > span {
+            color: #595959;
+            font-weight: 100;
+            font-size: 60%;
+        }
+    }
 
-main > .items > ul {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: 0;
-    padding: 0;
-}
+    > ul {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: 0;
+        padding: 0;
 
-main > .items > ul > li {
-    position: absolute;
-    width: 32px;
-    height: 32px;
-    list-style: none;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    opacity: 0.8;
-    animation:
-        wave-scale    ease-in-out infinite alternate,
-        pop-in cubic-bezier(0.4, 4, 0.5, -0.5) backwards,
-        wave-x-left   ease-in-out infinite alternate,
-        wave-x-margin ease-in-out infinite alternate-reverse,
-        wave-y-top    ease-in-out infinite alternate,
-        wave-y-margin ease-in-out infinite alternate-reverse;
-}
+        > li {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            list-style: none;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.8;
+            animation:
+                wave-scale    ease-in-out infinite alternate,
+                pop-in cubic-bezier(0.4, 4, 0.5, -0.5) backwards,
+                wave-x-left   ease-in-out infinite alternate,
+                wave-x-margin ease-in-out infinite alternate-reverse,
+                wave-y-top    ease-in-out infinite alternate,
+                wave-y-margin ease-in-out infinite alternate-reverse;
+        }
+    }
 
-#mulled_wine > ul > li {
-    background-image: url('../images/pink-ball-mulled_wine.png');
-}
+    &#mulled_wine > ul > li {
+        background-image: url('../images/pink-ball-mulled_wine.png');
+    }
 
-#drink > ul > li {
-    background-image: url('../images/green-ball-drink.png');
-}
+    &#drink > ul > li {
+        background-image: url('../images/green-ball-drink.png');
+    }
 
-#food > ul > li {
-    background-image: url('../images/blue-ball-food.png');
-}
+    &#food > ul > li {
+        background-image: url('../images/blue-ball-food.png');
+    }
 
-#coffee > ul > li {
-    background-image: url('../images/silver-ball-coffee.png');
-}
+    &#coffee > ul > li {
+        background-image: url('../images/silver-ball-coffee.png');
+    }
 
-#attendance > ul > li {
-    background-image: url('../images/gold-ball-ginger.png');
-}
+    &#attendance > ul > li {
+        background-image: url('../images/gold-ball-ginger.png');
 
-#attendance > ul > li.departed,
-#attendance > ul > li.departed ~ li {
-    opacity: 0.5;
+        &.departed,
+        &.departed ~ li {
+            opacity: 0.5;
+        }
+    }
 }
