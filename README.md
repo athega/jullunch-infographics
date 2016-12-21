@@ -20,13 +20,13 @@ Install dependencies, which are 'babel-cli', 'babel-preset-es2015', 'eventsource
 
 ## Build scripts
 
-Build 'libs' and 'app' script bundles:
+Build style, 'libs' and 'app' script bundles:
 
-`npm run-script build`
+`npm run build`
 
-Watch 'src' folder and build 'app' script bundle:
+Watch 'styles' and 'src' folders for changes and build style and 'app' script bundle:
 
-`npm run-script watch`
+`npm run watch`
 
 
 ## Event test scripts:
