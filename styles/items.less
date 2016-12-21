@@ -1,0 +1,50 @@
+main > .items > ul {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: 0;
+    padding: 0;
+}
+
+main > .items > ul > li {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    list-style: none;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.8;
+    animation:
+        wave-scale    ease-in-out infinite alternate,
+        pop-in cubic-bezier(0.4, 4, 0.5, -0.5) backwards,
+        wave-x-left   ease-in-out infinite alternate,
+        wave-x-margin ease-in-out infinite alternate-reverse,
+        wave-y-top    ease-in-out infinite alternate,
+        wave-y-margin ease-in-out infinite alternate-reverse;
+}
+
+#mulled_wine > ul > li {
+    background-image: url('../images/pink-ball-mulled_wine.png');
+}
+
+#drink > ul > li {
+    background-image: url('../images/green-ball-drink.png');
+}
+
+#food > ul > li {
+    background-image: url('../images/blue-ball-food.png');
+}
+
+#coffee > ul > li {
+    background-image: url('../images/silver-ball-coffee.png');
+}
+
+#attendance > ul > li {
+    background-image: url('../images/gold-ball-ginger.png');
+}
+
+#attendance > ul > li.departed,
+#attendance > ul > li.departed ~ li {
+    opacity: 0.5;
+}
