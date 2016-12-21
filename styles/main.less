@@ -1,0 +1,96 @@
+body {
+    margin: 0;
+    border-top: 8px solid #F60;
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-size: 200%;
+    text-align: center;
+    overflow: hidden;
+}
+
+body::before,
+body::after,
+body > main::before,
+body > main::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    width: 160px;
+    height: 80px;
+    background-image: url('../images/dekoration.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+body::before {
+    top: 24px;
+    left: -24px;
+    transform: rotate(-45deg);
+}
+
+body::after {
+    top: 24px;
+    right: -24px;
+    transform: rotate(45deg);
+}
+
+body > main::before {
+    bottom: 24px;
+    left: -24px;
+    transform: rotate(-135deg);
+}
+
+body > main::after {
+    bottom: 24px;
+    right: -24px;
+    transform: rotate(135deg);
+}
+
+body > h1 {
+    margin: 0;
+    text-align: center;
+}
+
+body > h1 > img,
+body > h1 > svg {
+    position: relative;
+    z-index: 2;
+    width: 528px;
+    height: 228px;
+}
+
+@media (max-width: 640px), (max-height: 480px) {
+    body > h1 > img,
+    body > h1 > svg {
+        width: 264px;
+        height: 114px;
+    }
+}
+
+main > div {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+}
+
+@media (max-height: 480px) {
+    main > div:not(.slide) {
+        top: 66%;
+    }
+}
+
+main > div:not(.active) {
+    display: none;
+}
+
+main > .slide {
+    height: 100%;
+    z-index: 2;
+}
+
+main > .slide > img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: white;
+}

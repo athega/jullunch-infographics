@@ -1,0 +1,115 @@
+#arrival h2,
+#arrival h3,
+#departure h2,
+#departure h3 {
+    margin-top: 0;
+    margin-bottom: 0.5em;
+}
+
+@keyframes arrival-img {
+    0% {
+        transform: scale(0.9);
+    }
+
+    100% {
+        transform: scale(1.1);
+    }
+}
+
+#arrival > img,
+#departure > img {
+    display: inline-block;
+    vertical-align: middle;
+    width: 6em;
+    height: 6em;
+    border-radius: 50%;
+    background-image: url("../images/bubble-background.png"), url("../images/santa.png");
+    background-color: red;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-blend-mode: hard-light;
+    animation: arrival-img 2s 4s ease-in-out infinite alternate,
+               pop-in 4s 1s cubic-bezier(0.4, 2, 0.4, 0.6) backwards;
+}
+
+#departure > img {
+    background-image: url("../images/bubble-background.png"), url("../images/friskare-hav.jpg");
+    background-color: blue;
+}
+
+#arrival > div,
+#departure > div {
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 14em;
+    margin: 0 0.5em;
+}
+
+#arrival > div > p,
+#departure > div > p {
+    text-align: left;
+}
+
+@keyframes arrival-name-x {
+    0% {
+        transform: scaleX(1.2) translateX(-1em);
+    }
+
+    100% {
+        transform: scaleX(1.2) translateX(1em);
+    }
+}
+
+#arrival h3 {
+    position: relative;
+    font-family: Oswald, sans-serif;
+    color: #2d88a6;
+    letter-spacing: 0.15em;
+    text-shadow: 0.2em 0.2em 0.2em rgba(0, 0, 0, 0.4);
+    perspective: 10em;
+    animation: arrival-name-x 5s ease-in-out infinite alternate;
+}
+
+@keyframes arrival-name-y {
+    0% {
+        top: -1em;
+    }
+
+    100% {
+        top: 1em;
+    }
+}
+
+@keyframes arrival-name-flip {
+    0% {
+        transform: rotateX(-270deg);
+        opacity: 0;
+    }
+
+    100% {
+        transform: rotateX(0deg);
+        opacity: 1;
+    }
+}
+
+#arrival h3 > b {
+    display: inline-block;
+    position: relative;
+    animation: arrival-name-y 2s ease-in-out infinite alternate,
+               arrival-name-flip 2s ease-in-out backwards;
+}
+
+#arrival span,
+#arrival time,
+#departure span {
+    color: #2d88a6;
+    font-size: 110%;
+}
+
+#arrival .arrived,
+#arrival .arrived-company {
+    display: inline-block;
+    min-width: 1em;
+    font-weight: bold;
+}
