@@ -1,62 +1,64 @@
-.image_cube > h2 {
-    margin-bottom: 0;
-}
+.image_cube {
+    > h2 {
+        margin-bottom: 0;
 
-#tagged_images > h2 > i {
-    color: #2d88a6;
-}
+        > i {
+            color: #2d88a6;
+        }
+    }
 
-.image_cube > span {
-    display: inline-block;
-    animation: pop-in 4s cubic-bezier(0.4, 1, 0.8, 1) backwards;
-}
+    > span {
+        display: inline-block;
+        animation: pop-in 4s cubic-bezier(0.4, 1, 0.8, 1) backwards;
 
-.image_cube > span > ol {
-    width: 40vmin;
-    height: 40vmin;
-    margin: 10vmin 0;
-    padding: 0;
-    transform-style: preserve-3d;
-}
+        > ol {
+            width: 40vmin;
+            height: 40vmin;
+            margin: 10vmin 0;
+            padding: 0;
+            transform-style: preserve-3d;
 
-.image_cube > span > ol > li {
-    list-style: none;
-    position: absolute;
-    backface-visibility: hidden;
-}
+            > li {
+                list-style: none;
+                position: absolute;
+                backface-visibility: hidden;
 
-.image_cube > span > ol > li.triangle {
-    display: block;
-    width: 0;
-    height: 0;
-    border: 20vmin solid transparent;
-    border-width: 5.359vmin 20vmin 34.641vmin 20vmin;
-    border-bottom-color: #f60;
-}
+                &.triangle {
+                    display: block;
+                    width: 0;
+                    height: 0;
+                    border: 20vmin solid transparent;
+                    border-width: 5.359vmin 20vmin 34.641vmin 20vmin;
+                    border-bottom-color: #f60;
+                }
 
-.image_cube > span > ol > li > figure {
-    position: relative;
-    margin: 0;
-}
+                > figure {
+                    position: relative;
+                    margin: 0;
 
-.image_cube > span > ol > li > figure > img {
-    display: block;
-    width: 40vmin;
-    height: 40vmin;
-    object-fit: cover;
-    box-sizing: border-box;
-    border: 2px solid black;
-    outline: 1px solid black;
-    background-color: gray;
-}
+                    > img {
+                        display: block;
+                        width: 40vmin;
+                        height: 40vmin;
+                        object-fit: cover;
+                        box-sizing: border-box;
+                        border: 2px solid black;
+                        outline: 1px solid black;
+                        background-color: gray;
+                    }
 
-.image_cube > span > ol > li > figure > figcaption {
-    position: absolute;
-    bottom: 0.5em;
-    right: 0.5em;
-    color: white;
-    text-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
-    line-height: 0.8;
-    text-align: right;
-    font-size: 0.8em;
+                    > figcaption {
+                        position: absolute;
+                        bottom: 0.5em;
+                        right: 0.5em;
+                        color: white;
+                        text-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
+                        line-height: 0.8;
+                        text-align: right;
+                        font-size: 0.8em;
+                    }
+                }
+            }
+        }
+    }
 }
