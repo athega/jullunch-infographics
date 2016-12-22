@@ -1,15 +1,15 @@
 {
   "name": "jullunch-infographics",
   "devDependencies": {
-    "autoless": "^0.1.7",
+    "autoless": "git+https://github.com/johanberonius/autoless.git",
     "babel-cli": "^6.18.0",
     "babel-preset-es2015": "^6.18.0",
     "eventsource": "^0.2.1",
     "nats": "git+https://github.com/nats-io/node-nats.git"
   },
   "scripts": {
-    "build": "autoless --no-watch ./styles/ ./build/; cat lib/jquery-3.1.1.min.js lib/d3.v4.min.js > build/libs.js; ./node_modules/.bin/babel src/*.js --out-file build/app.js",
-    "watch": "autoless ./styles/ ./build/ & ./node_modules/.bin/babel --watch src/*.js --out-file build/app.js"
+    "build": "autoless --compress --no-watch ./styles/ ./build/; cat lib/jquery-3.1.1.min.js lib/d3.v4.min.js > build/libs.js; ./node_modules/.bin/babel src/*.js --out-file build/app.js",
+    "watch": "autoless --compress ./styles/ ./build/ & ./node_modules/.bin/babel --watch src/*.js --out-file build/app.js"
   },
   "babel": {
     "presets": [
