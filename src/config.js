@@ -3,8 +3,10 @@ $(function() {
 
     var base = 'https://jullunch-backend.athega.se/',
         assets = 'https://assets.athega.se/jullunch',
-        data = base, // 'data/',
-        ext = ''; // '.json';
+//        data = base,
+//        ext = '';
+        data = 'data/',
+        ext = '.json';
 
     window.infographics = {
         config: {
